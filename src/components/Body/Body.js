@@ -40,7 +40,9 @@ class Body extends Component {
                 menuItens = { this.menuItens() } >
                     <LineChart widgetData = { this.state.widgetsData[0] }/>
                 </Widget >
-                <OutlinedNumberField />
+                <OutlinedNumberField
+                label='X'
+                value={20}/>
                 <FormDialog isShowing = { this.state.isShowingDialog }/>
                 <Fab >
                     <AddIcon />

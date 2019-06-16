@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 
+//TODO redirecionar isso para outro canto
 class FormDialog extends Component {
     constructor(props) {
         super(props)

@@ -9,10 +9,15 @@ class OutlinedTextFields extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: 0
+            value: props.value
         }
 
         this.handleChange = this.handleChange.bind(this)
+    }
+
+    componentWillReceiveProps({value}) {
+        console.log(value)
+        this.setState({ value })
     }
 
     handleChange(event) {
@@ -21,14 +26,15 @@ class OutlinedTextFields extends Component {
     }
 
     render() {
-        const {container, textField} = this.props.classes
+        const {label} = this.props
         const {value} = this.state
+        const {container, textField} = this.props.classes
 
         return (
             <form className={container} noValidate autoComplete="off" >
                 <TextField
                     id="outlined-number"
-                    label="Number"
+                    label={label}
                     value={value}
                     onChange={this.handleChange}
                     type="number"
