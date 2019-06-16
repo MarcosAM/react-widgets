@@ -6,7 +6,6 @@ import LineChart from '../Chart'
 import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
 import FormDialog from '../Chart/FormDialog'
-import OutlinedNumberField from '../OutlinedNumberField'
 
 
 class Body extends Component {
@@ -40,10 +39,6 @@ class Body extends Component {
                 menuItens = { this.menuItens() } >
                     <LineChart widgetData = { this.state.widgetsData[0] }/>
                 </Widget >
-                <OutlinedNumberField
-                label='X'
-                value={20}
-                callback={(value) => console.log(value) }/>
                 <FormDialog isShowing = { this.state.isShowingDialog }/>
                 <Fab >
                     <AddIcon />

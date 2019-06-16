@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
+import OutlinedNumberField from '../OutlinedNumberField'
 
-//TODO redirecionar isso para outro canto
+//TODO colocar isso numa pasta própria para ele
 class FormDialog extends Component {
     constructor(props) {
         super(props)
@@ -37,11 +37,6 @@ class FormDialog extends Component {
     render() {
         return (
             <div>
-                {/*
-                <Button variant="outlined" color="primary" onClick={() => this.handleClickOpen()}>
-                    Open form dialog
-                </Button>
-                */}
                 <Dialog open={this.state.open} onClose={() => this.handleClose()} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Edit Widget</DialogTitle>
                     <Divider variant="fullWidth" />
@@ -49,14 +44,18 @@ class FormDialog extends Component {
                         <DialogContentText>
                             Insert new values for the chart
                         </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Email Address"
-                            type="email"
-                            fullWidth
-                        />
+                        <OutlinedNumberField
+                        label='X'
+                        value={10}
+                        callback={(value) => console.log(value) }/>
+                        <OutlinedNumberField
+                        label='Y'
+                        value={20}
+                        callback={(value) => console.log(value) }/>
+                        <OutlinedNumberField
+                        label='Z'
+                        value={30}
+                        callback={(value) => console.log(value) }/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.handleClose()} color="primary">
