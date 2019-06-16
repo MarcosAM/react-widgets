@@ -3,8 +3,6 @@ import { withStyles } from '@material-ui/core'
 import styles from './styles'
 import TextField from '@material-ui/core/TextField'
 
-//TODO vamos fazer umas alterações aqui para ver se esse negócio reconhece
-
 class OutlinedTextFields extends Component {
     constructor(props) {
         super(props)
@@ -20,13 +18,14 @@ class OutlinedTextFields extends Component {
         this.setState({ value })
     }
 
-    handleChange(event) {
+    handleChange(event, callback) {
         const {value} = event.target
         this.setState(state => ({value}))
+        callback(value)
     }
 
     render() {
-        const {label} = this.props
+        const {label, callback} = this.props
         const {value} = this.state
         const {container, textField} = this.props.classes
 
@@ -36,7 +35,7 @@ class OutlinedTextFields extends Component {
                     id="outlined-number"
                     label={label}
                     value={value}
-                    onChange={this.handleChange}
+                    onChange={(e) => this.handleChange(e, callback)}
                     type="number"
                     className={textField}
                     InputLabelProps={{

@@ -42,7 +42,8 @@ class Body extends Component {
                 </Widget >
                 <OutlinedNumberField
                 label='X'
-                value={20}/>
+                value={20}
+                callback={(value) => console.log(value) }/>
                 <FormDialog isShowing = { this.state.isShowingDialog }/>
                 <Fab >
                     <AddIcon />

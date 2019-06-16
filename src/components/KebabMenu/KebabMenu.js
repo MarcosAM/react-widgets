@@ -20,7 +20,6 @@ class KebabMenu extends Component {
     }
 
     handleClick(event) {
-        //TODO perguntar se tem uma maneira melhor de fazer
         const { currentTarget } = event
         this.setState(state => {
             return { anchorEl: currentTarget }
