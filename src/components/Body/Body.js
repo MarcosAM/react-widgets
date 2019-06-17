@@ -18,45 +18,37 @@ class Body extends Component {
             isShowingDialog: false
         }
 
-        this.showFormDialog = this.showFormDialog.bind(this)
+        this.setDialogOpen = this.setDialogOpen.bind(this)
         this.updateWidget = this.updateWidget.bind(this)
-        //this.hideFormDialog = this.hideFormDialog.bind(this)
     }
 
     menuItens() {
         return (
-            [{ text: 'Edit', click: () => this.showFormDialog() }, { text: 'Delete', click: () => console.log(this.state) }]
+            [{ text: 'Edit', click: () => this.setDialogOpen(true) }]
         )
     }
 
-    showFormDialog() {
-        this.setState(state => ({ isShowingDialog: true }))
+    setDialogOpen(open) {
+        this.setState(state => ({ isShowingDialog: open }))
     }
-
-    /*hideFormDialog() {
-        this.setState(state => ({ isShowingDialog: false }))
-    }*/
 
     //TODO só vai atualizar o indice 0
     updateWidget(newData) {
-        console.log(newData)
-        //this.setState(state => ({ widgetsData: state.widgetsData.splice(0, 1, newData), isShowingDialog: false }))
-        //[...state.values.slice(0, index), ...value, ...state.values.slice(index + 1)]
         this.setState(state => ({ widgetsData: [newData], isShowingDialog: false }))
-        console.log(this.state)
     }
 
     render() {
         return (
             <div className={this.props.classes.body} >
                 <Widget title='Chart 1'
-                menuItens={this.menuItens()} >
+                    menuItens={this.menuItens()} >
                     <LineChart widgetData={this.state.widgetsData[0]} />
                 </Widget >
                 <FormDialog
-                widgetData={this.state.widgetsData[0]}
-                isShowing={this.state.isShowingDialog}
-                handleClose={this.updateWidget} />
+                    widgetData={this.state.widgetsData[0]}
+                    isShowing={this.state.isShowingDialog}
+                    submit={this.updateWidget}
+                    cancel={() => this.setDialogOpen(false)} />
                 <Fab >
                     <AddIcon />
                 </Fab>

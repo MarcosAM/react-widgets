@@ -22,19 +22,17 @@ class FormDialog extends Component {
 
     componentWillReceiveProps(newProps) {
         this.setState({ values: newProps.widgetData })
-        console.log(this.state)
     }
 
     updateValues(event, index) {
         const { value } = event.target
         this.setState(state => ({ values: [...state.values.slice(0, index), ...value, ...state.values.slice(index + 1)] }))
-        console.log('O state virou: ', this.state.values)
     }
 
     render() {
         return (
             <div>
-                <Dialog open={this.props.isShowing} onClose={() => this.props.handleClose(this.state.values)} aria-labelledby="form-dialog-title">
+                <Dialog open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
@@ -55,10 +53,10 @@ class FormDialog extends Component {
                             callback={event => this.updateValues(event, 2)} />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.props.handleClose(this.state.values)} color="primary">
+                        <Button onClick={() => this.props.cancel()} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.handleClose(this.state.values)} color="primary">
+                        <Button onClick={() => this.props.submit(this.state.values)} color="primary">
                             Confirm
                         </Button>
                     </DialogActions>
