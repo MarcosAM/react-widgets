@@ -37,14 +37,16 @@ class Body extends Component {
     }
 
     render() {
+        const { widgetsData } = this.state
+
         return (
             <div className={this.props.classes.body} >
                 <Widget title='Chart 1'
                     menuItens={this.menuItens()} >
-                    <LineChart widgetData={this.state.widgetsData[0]} />
+                    <LineChart series={[{ name: 'Profits', data: widgetsData[0] }]} />
                 </Widget >
                 <EditChartDialog
-                    widgetData={this.state.widgetsData[0]}
+                    widgetData={widgetsData[0]}
                     isShowing={this.state.isShowingDialog}
                     submit={this.updateWidget}
                     cancel={() => this.setDialogOpen(false)} />
