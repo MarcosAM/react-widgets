@@ -22,7 +22,8 @@ class EditChartDialog extends Component {
         super(props)
 
         this.state = {
-            values: this.props.widgetData
+            values: this.props.widgetData,
+            series: this.props.series
         }
 
         this.updateValues = this.updateValues.bind(this)
@@ -46,8 +47,8 @@ class EditChartDialog extends Component {
     }
 
     //TODO parte do pressuposto que só há uma series
-    getInputs() {
-        const { values } = this.state
+    getInputs(values) {
+        //const { values } = this.state
 
         const inputs = Array.from(values.entries()).map(entry => {
             const [index, value] = entry
@@ -76,6 +77,13 @@ class EditChartDialog extends Component {
         )
     }
 
+    getListItens() {
+        return this.state.series.map(serie => ({
+            listItem: <ListItemText primary={serie.name} />,
+            collapseListItens: this.getInputs(serie.data)
+        }))
+    }
+
     render() {
         return (
             <div>
@@ -84,12 +92,15 @@ class EditChartDialog extends Component {
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <NestedList
+                            /*
                             listItens={[
                                 {
                                     listItem: <ListItemText primary={'Series 1'} />,
-                                    collapseListItens: this.getInputs()
+                                    collapseListItens: this.getInputs(this.state.values)
                                 }
                             ]}
+                            */
+                            listItens={this.getListItens()}
                             subheader={
                                 <DialogContentText>
                                     Insert new values for the chart
