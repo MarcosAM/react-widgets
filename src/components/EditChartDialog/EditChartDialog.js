@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -13,6 +13,7 @@ import NestedList from '../NestedList'
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
 
 //TODO ele não consegue receber valores negativos
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -26,16 +27,22 @@ class EditChartDialog extends Component {
 
         this.updateValues = this.updateValues.bind(this)
         this.addValue = this.addValue.bind(this)
+        this.removeValue = this.removeValue.bind(this)
     }
 
     updateValues(event, index) {
-        const { value } = event.target
+        const value = parseInt(event.target.value)
 
-        this.setState(state => ({ values: [...state.values.slice(0, index), parseInt(value), ...state.values.slice(index + 1)] }))
+        if (!isNaN(value))
+            this.setState(state => ({ values: [...state.values.slice(0, index), parseInt(value), ...state.values.slice(index + 1)] }))
     }
 
-    addValue(event) {
+    addValue() {
         this.setState(state => ({ values: [...this.state.values, 0] }))
+    }
+
+    removeValue() {
+        this.setState(state => ({ values: state.values.slice(0, state.values.length - 1) }))
     }
 
     //TODO parte do pressuposto que só há uma series
@@ -54,7 +61,19 @@ class EditChartDialog extends Component {
             )
         })
 
-        return ([...inputs, <IconButton onClick={this.addValue} aria-label='Add value to series'> <AddIcon /> </IconButton>])
+        return (
+            [
+                ...inputs,
+                <Fragment>
+                    <IconButton onClick={this.removeValue} aria-label='Remove value to series'>
+                        <RemoveIcon />
+                    </IconButton>
+                    <IconButton onClick={this.addValue} aria-label='Add value to series'>
+                        <AddIcon />
+                    </IconButton>
+                </Fragment>
+            ]
+        )
     }
 
     render() {
