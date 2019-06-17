@@ -59,7 +59,6 @@ class NestedList extends Component {
 
     render() {
         const { classes } = this.props
-        //const { open } = this.state
 
         return (
             <List
@@ -68,19 +67,6 @@ class NestedList extends Component {
                 subheader={this.props.subheader}
                 className={classes.root}>
                 {this.renderListItens()}
-                {/*
-                <ListItem button onClick={this.handleClick}>
-                    {this.props.listItens[0].listItem}
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            {this.props.listItens[0].collapseListItens[0]}
-                        </ListItem>
-                    </List>
-                </Collapse>
-                */}
             </List>
         );
     }

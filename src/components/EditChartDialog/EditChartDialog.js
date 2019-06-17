@@ -13,6 +13,7 @@ import NestedList from '../NestedList'
 import ListItemText from '@material-ui/core/ListItemText';
 
 //TODO ele não consegue receber valores negativos
+//TODO deletar o styles porquê ele não está sendo usado para nada
 class EditChartDialog extends Component {
     constructor(props) {
         super(props)
@@ -43,6 +44,7 @@ class EditChartDialog extends Component {
                         <DialogContentText>
                             Insert new values for the chart
                         </DialogContentText>
+                        {/*
                         <div className={this.props.classes.serieInputsContainer}>
                             <OutlinedNumberField
                                 label='X'
@@ -57,9 +59,26 @@ class EditChartDialog extends Component {
                                 value={this.state.values[2]}
                                 callback={event => this.updateValues(event, 2)} />
                         </div>
+                        */}
                         <NestedList
                             listItens={[
-                                { listItem: <ListItemText primary={'Series 1'} />, collapseListItens: [<ListItemText primary="Dando certo" />] },
+                                {
+                                    listItem: <ListItemText primary={'Series 1'} />,
+                                    collapseListItens: [
+                                        <OutlinedNumberField
+                                            label='X'
+                                            value={this.state.values[0]}
+                                            callback={event => this.updateValues(event, 0)} />,
+                                        <OutlinedNumberField
+                                            label='Y'
+                                            value={this.state.values[1]}
+                                            callback={event => this.updateValues(event, 1)} />,
+                                        <OutlinedNumberField
+                                            label='Z'
+                                            value={this.state.values[2]}
+                                            callback={event => this.updateValues(event, 2)} />
+                                    ]
+                                }
                             ]}
                             subheader={
                                 <DialogContentText>
