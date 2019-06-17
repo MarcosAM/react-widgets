@@ -36,11 +36,7 @@ class NestedList extends Component {
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
-                subheader={
-                    <ListSubheader component="div" id="nested-list-subheader">
-                        Insert new values
-                </ListSubheader>
-                }
+                subheader={this.props.subheader}
                 className={classes.root}>
                 <ListItem button onClick={this.handleClick}>
                     <ListItemIcon>

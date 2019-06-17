@@ -7,10 +7,6 @@ import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
 import EditChartDialog from '../EditChartDialog'
 
-//TODO deletar isso aqui depois
-import NestedList from '../NestedList'
-
-
 class Body extends Component {
     constructor(props) {
         super(props)
@@ -47,7 +43,6 @@ class Body extends Component {
                     menuItens={this.menuItens()} >
                     <LineChart widgetData={this.state.widgetsData[0]} />
                 </Widget >
-                <NestedList />
                 <EditChartDialog
                     widgetData={this.state.widgetsData[0]}
                     isShowing={this.state.isShowingDialog}
