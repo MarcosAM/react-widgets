@@ -14,54 +14,49 @@ class FormDialog extends Component {
         super(props)
 
         this.state = {
-            open: false
+            values: [1, 2, 3]
         }
+
+        this.updateValues = this.updateValues.bind(this)
     }
 
-    componentWillReceiveProps(newProps) {
-        this.setState({ open: newProps.isShowing })
-    }
-
-    handleClickOpen() {
-        this.setState({
-            open: true
-        })
-    }
-
-    handleClose() {
-        this.setState({
-            open: false
-        })
+    updateValues(event, index) {
+        const { value } = event.target
+        this.setState(state => ({ values: [...state.values.slice(0, index), ...value, ...state.values.slice(index + 1)] }))
+        console.log('O state virou: ', this.state.values)
     }
 
     render() {
         return (
             <div>
-                <Dialog open={this.state.open} onClose={() => this.handleClose()} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Edit Widget</DialogTitle>
+                <Dialog open={this.props.isShowing} onClose={() => this.props.handleClose(this.state.values)} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <DialogContentText>
                             Insert new values for the chart
                         </DialogContentText>
                         <OutlinedNumberField
-                        label='X'
-                        value={10}
-                        callback={(value) => console.log(value) }/>
+                            label='X'
+                            value={this.state.values[0]}
+                            //callback={(value) => console.log(value) }/>
+                            callback={event => this.updateValues(event, 0)} />
                         <OutlinedNumberField
-                        label='Y'
-                        value={20}
-                        callback={(value) => console.log(value) }/>
+                            label='Y'
+                            value={this.state.values[1]}
+                            //callback={(value) => console.log(value) }/>
+                            callback={event => this.updateValues(event, 1)} />
                         <OutlinedNumberField
-                        label='Z'
-                        value={30}
-                        callback={(value) => console.log(value) }/>
+                            label='Z'
+                            value={this.state.values[2]}
+                            //callback={(value) => console.log(value) }/>
+                            callback={event => this.updateValues(event, 2)} />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => this.handleClose()} color="primary">
+                        <Button onClick={() => this.props.handleClose(this.state.values)} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.handleClose()} color="primary">
+                        <Button onClick={() => this.props.handleClose(this.state.values)} color="primary">
                             Confirm
                         </Button>
                     </DialogActions>

@@ -15,31 +15,47 @@ class Body extends Component {
             widgetsData: [
                 [1, 5, 3]
             ],
-            isShowingDialog: true
+            isShowingDialog: false
         }
 
         this.showFormDialog = this.showFormDialog.bind(this)
+        this.updateWidget = this.updateWidget.bind(this)
+        //this.hideFormDialog = this.hideFormDialog.bind(this)
     }
 
     menuItens() {
         return (
-            [{ text: 'Save', click: () => this.showFormDialog() }, { text: 'Export', click: () => console.log(this.state) }]
+            [{ text: 'Edit', click: () => this.showFormDialog() }, { text: 'Delete', click: () => console.log(this.state) }]
         )
     }
 
-    //TODO esse isShowingDialog está sempre true, ele não reflete o estado do dialog
     showFormDialog() {
         this.setState(state => ({ isShowingDialog: true }))
     }
 
+    /*hideFormDialog() {
+        this.setState(state => ({ isShowingDialog: false }))
+    }*/
+
+    //TODO só vai atualizar o indice 0
+    updateWidget(newData) {
+        console.log(newData)
+        //this.setState(state => ({ widgetsData: state.widgetsData.splice(0, 1, newData), isShowingDialog: false }))
+        //[...state.values.slice(0, index), ...value, ...state.values.slice(index + 1)]
+        this.setState(state => ({ widgetsData: [newData], isShowingDialog: false }))
+        console.log(this.state)
+    }
+
     render() {
         return (
-            <div className = { this.props.classes.body } >
-                <Widget title = 'Chart 1'
-                menuItens = { this.menuItens() } >
-                    <LineChart widgetData = { this.state.widgetsData[0] }/>
+            <div className={this.props.classes.body} >
+                <Widget title='Chart 1'
+                    menuItens={this.menuItens()} >
+                    <LineChart widgetData={this.state.widgetsData[0]} />
                 </Widget >
-                <FormDialog isShowing = { this.state.isShowingDialog }/>
+                <FormDialog isShowing={this.state.isShowingDialog}
+                    handleClose={this.updateWidget} />
+                {/*callback={this.updateWidget} /> */}
                 <Fab >
                     <AddIcon />
                 </Fab>

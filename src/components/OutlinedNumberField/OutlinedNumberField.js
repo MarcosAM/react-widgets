@@ -4,7 +4,7 @@ import styles from './styles'
 import TextField from '@material-ui/core/TextField'
 
 class OutlinedTextFields extends Component {
-    constructor(props) {
+    /*constructor(props) {
         super(props)
         this.state = {
             value: props.value
@@ -22,12 +22,12 @@ class OutlinedTextFields extends Component {
         const {value} = event.target
         this.setState(state => ({value}))
         callback(value)
-    }
+    }*/
 
     render() {
-        const {label, callback} = this.props
-        const {value} = this.state
-        const {container, textField} = this.props.classes
+        const { value, label, callback } = this.props
+        //const {value} = this.state
+        const { container, textField } = this.props.classes
 
         return (
             <form className={container} noValidate autoComplete="off" >
@@ -35,7 +35,9 @@ class OutlinedTextFields extends Component {
                     id="outlined-number"
                     label={label}
                     value={value}
-                    onChange={(e) => this.handleChange(e, callback)}
+                    //onChange={(e) => this.handleChange(e, callback)}
+                    //onChange={(e) => callback(e)}
+                    onChange={callback}
                     type="number"
                     className={textField}
                     InputLabelProps={{
