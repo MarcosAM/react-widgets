@@ -14,10 +14,15 @@ class FormDialog extends Component {
         super(props)
 
         this.state = {
-            values: [1, 2, 3]
+            values: this.props.widgetData
         }
 
         this.updateValues = this.updateValues.bind(this)
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({ values: newProps.widgetData })
+        console.log(this.state)
     }
 
     updateValues(event, index) {
@@ -39,17 +44,14 @@ class FormDialog extends Component {
                         <OutlinedNumberField
                             label='X'
                             value={this.state.values[0]}
-                            //callback={(value) => console.log(value) }/>
                             callback={event => this.updateValues(event, 0)} />
                         <OutlinedNumberField
                             label='Y'
                             value={this.state.values[1]}
-                            //callback={(value) => console.log(value) }/>
                             callback={event => this.updateValues(event, 1)} />
                         <OutlinedNumberField
                             label='Z'
                             value={this.state.values[2]}
-                            //callback={(value) => console.log(value) }/>
                             callback={event => this.updateValues(event, 2)} />
                     </DialogContent>
                     <DialogActions>

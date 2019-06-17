@@ -50,12 +50,13 @@ class Body extends Component {
         return (
             <div className={this.props.classes.body} >
                 <Widget title='Chart 1'
-                    menuItens={this.menuItens()} >
+                menuItens={this.menuItens()} >
                     <LineChart widgetData={this.state.widgetsData[0]} />
                 </Widget >
-                <FormDialog isShowing={this.state.isShowingDialog}
-                    handleClose={this.updateWidget} />
-                {/*callback={this.updateWidget} /> */}
+                <FormDialog
+                widgetData={this.state.widgetsData[0]}
+                isShowing={this.state.isShowingDialog}
+                handleClose={this.updateWidget} />
                 <Fab >
                     <AddIcon />
                 </Fab>
