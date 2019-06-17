@@ -34,6 +34,21 @@ class EditChartDialog extends Component {
         this.setState(state => ({ values: [...state.values.slice(0, index), ...value, ...state.values.slice(index + 1)] }))
     }
 
+    //TODO parte do pressuposto que só há uma series
+    getInputs() {
+        const { values } = this.state
+        console.log(values)
+
+        return (
+            values.map(value => (
+                <OutlinedNumberField
+                    label={`Ponto ${values.indexOf(value) + 1}:`}
+                    value={value}
+                    callback={event => this.updateValues(event, values.indexOf(value))} />
+            ))
+        )
+    }
+
     render() {
         return (
             <div>
@@ -41,30 +56,17 @@ class EditChartDialog extends Component {
                     <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
+                        {/*
                         <DialogContentText>
                             Insert new values for the chart
                         </DialogContentText>
-                        {/*
-                        <div className={this.props.classes.serieInputsContainer}>
-                            <OutlinedNumberField
-                                label='X'
-                                value={this.state.values[0]}
-                                callback={event => this.updateValues(event, 0)} />
-                            <OutlinedNumberField
-                                label='Y'
-                                value={this.state.values[1]}
-                                callback={event => this.updateValues(event, 1)} />
-                            <OutlinedNumberField
-                                label='Z'
-                                value={this.state.values[2]}
-                                callback={event => this.updateValues(event, 2)} />
-                        </div>
                         */}
                         <NestedList
                             listItens={[
                                 {
                                     listItem: <ListItemText primary={'Series 1'} />,
-                                    collapseListItens: [
+                                    collapseListItens: this.getInputs()
+                                    /*collapseListItens: [
                                         <OutlinedNumberField
                                             label='X'
                                             value={this.state.values[0]}
@@ -77,7 +79,7 @@ class EditChartDialog extends Component {
                                             label='Z'
                                             value={this.state.values[2]}
                                             callback={event => this.updateValues(event, 2)} />
-                                    ]
+                                    ]*/
                                 }
                             ]}
                             subheader={
