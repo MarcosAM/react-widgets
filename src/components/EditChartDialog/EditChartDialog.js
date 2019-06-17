@@ -41,13 +41,18 @@ class EditChartDialog extends Component {
     //TODO parte do pressuposto que só há uma series
     getInputs() {
         const { values } = this.state
-        
-        const inputs = values.map(value => (<OutlinedNumberField
-            key={values.indexOf(value)}
-            label={`Ponto ${values.indexOf(value) + 1}:`}
-            value={value}
-            callback={event => this.updateValues(event, values.indexOf(value))} />)
-        )
+
+        const inputs = Array.from(values.entries()).map(entry => {
+            const [index, value] = entry
+
+            return (
+                <OutlinedNumberField
+                    key={index}
+                    label={`Ponto ${index + 1}:`}
+                    value={value}
+                    callback={event => this.updateValues(event, index)} />
+            )
+        })
 
         return ([...inputs, <IconButton onClick={this.addValue} aria-label='Add value to series'> <AddIcon /> </IconButton>])
     }
