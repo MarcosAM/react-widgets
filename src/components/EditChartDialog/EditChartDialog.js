@@ -7,6 +7,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import OutlinedNumberField from '../OutlinedNumberField'
+import styles from './styles'
+import { withStyles } from '@material-ui/core'
 
 //TODO ele não consegue receber valores negativos
 class EditChartDialog extends Component {
@@ -39,18 +41,20 @@ class EditChartDialog extends Component {
                         <DialogContentText>
                             Insert new values for the chart
                         </DialogContentText>
-                        <OutlinedNumberField
-                            label='X'
-                            value={this.state.values[0]}
-                            callback={event => this.updateValues(event, 0)} />
-                        <OutlinedNumberField
-                            label='Y'
-                            value={this.state.values[1]}
-                            callback={event => this.updateValues(event, 1)} />
-                        <OutlinedNumberField
-                            label='Z'
-                            value={this.state.values[2]}
-                            callback={event => this.updateValues(event, 2)} />
+                        <div className={this.props.classes.serieInputsContainer}>
+                            <OutlinedNumberField
+                                label='X'
+                                value={this.state.values[0]}
+                                callback={event => this.updateValues(event, 0)} />
+                            <OutlinedNumberField
+                                label='Y'
+                                value={this.state.values[1]}
+                                callback={event => this.updateValues(event, 1)} />
+                            <OutlinedNumberField
+                                label='Z'
+                                value={this.state.values[2]}
+                                callback={event => this.updateValues(event, 2)} />
+                        </div>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => this.props.cancel()} color="primary">
@@ -66,4 +70,4 @@ class EditChartDialog extends Component {
     }
 }
 
-export default EditChartDialog
+export default withStyles(styles)(EditChartDialog)
