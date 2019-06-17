@@ -11,6 +11,8 @@ import styles from './styles'
 import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
 import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import AddIcon from '@material-ui/icons/Add'
 
 //TODO ele não consegue receber valores negativos
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -37,16 +39,15 @@ class EditChartDialog extends Component {
     //TODO parte do pressuposto que só há uma series
     getInputs() {
         const { values } = this.state
-        console.log(values)
 
-        return (
-            values.map(value => (
-                <OutlinedNumberField
-                    label={`Ponto ${values.indexOf(value) + 1}:`}
-                    value={value}
-                    callback={event => this.updateValues(event, values.indexOf(value))} />
-            ))
-        )
+        const inputs = values.map(value => (
+            <OutlinedNumberField
+                label={`Ponto ${values.indexOf(value) + 1}:`}
+                value={value}
+                callback={event => this.updateValues(event, values.indexOf(value))} />
+        ))
+
+        return ([...inputs, <IconButton> <AddIcon /> </IconButton>])
     }
 
     render() {
@@ -56,30 +57,11 @@ class EditChartDialog extends Component {
                     <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
-                        {/*
-                        <DialogContentText>
-                            Insert new values for the chart
-                        </DialogContentText>
-                        */}
                         <NestedList
                             listItens={[
                                 {
                                     listItem: <ListItemText primary={'Series 1'} />,
                                     collapseListItens: this.getInputs()
-                                    /*collapseListItens: [
-                                        <OutlinedNumberField
-                                            label='X'
-                                            value={this.state.values[0]}
-                                            callback={event => this.updateValues(event, 0)} />,
-                                        <OutlinedNumberField
-                                            label='Y'
-                                            value={this.state.values[1]}
-                                            callback={event => this.updateValues(event, 1)} />,
-                                        <OutlinedNumberField
-                                            label='Z'
-                                            value={this.state.values[2]}
-                                            callback={event => this.updateValues(event, 2)} />
-                                    ]*/
                                 }
                             ]}
                             subheader={
