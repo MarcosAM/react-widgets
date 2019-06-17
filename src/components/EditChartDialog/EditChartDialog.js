@@ -8,8 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import OutlinedNumberField from '../OutlinedNumberField'
 
-//TODO colocar isso numa pasta própria para ele
-class FormDialog extends Component {
+//TODO ele não consegue receber valores negativos
+class EditChartDialog extends Component {
     constructor(props) {
         super(props)
 
@@ -66,4 +66,4 @@ class FormDialog extends Component {
     }
 }
 
-export default FormDialog
+export default EditChartDialog

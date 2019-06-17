@@ -5,7 +5,7 @@ import Widget from '../Widget'
 import LineChart from '../Chart'
 import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
-import FormDialog from '../Chart/FormDialog'
+import EditChartDialog from '../EditChartDialog'
 
 
 class Body extends Component {
@@ -44,7 +44,7 @@ class Body extends Component {
                     menuItens={this.menuItens()} >
                     <LineChart widgetData={this.state.widgetsData[0]} />
                 </Widget >
-                <FormDialog
+                <EditChartDialog
                     widgetData={this.state.widgetsData[0]}
                     isShowing={this.state.isShowingDialog}
                     submit={this.updateWidget}
