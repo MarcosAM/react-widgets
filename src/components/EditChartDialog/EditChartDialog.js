@@ -28,18 +28,10 @@ class EditChartDialog extends Component {
         this.addValue = this.addValue.bind(this)
     }
 
-    /*componentWillReceiveProps(newProps) {
-        this.setState({ values: newProps.widgetData })
-    }*/
-
     updateValues(event, index) {
         const { value } = event.target
-        //console.log(value)
-        this.setState(state => {
-            const newValues = [...state.values.slice(0, index), parseInt(value), ...state.values.slice(index + 1)]
-            console.log('O novo values que está sendo gerado:', newValues)
-            return { values: newValues }
-        }, () => console.log('Logo após update o valor é:', this.state))
+
+        this.setState(state => ({ values: [...state.values.slice(0, index), parseInt(value), ...state.values.slice(index + 1)] }))
     }
 
     addValue(event) {
@@ -49,17 +41,13 @@ class EditChartDialog extends Component {
     //TODO parte do pressuposto que só há uma series
     getInputs() {
         const { values } = this.state
-        console.log('O values que get Input recebe:', values)
-        const inputs = values.map(value => {
-            console.log(value)
-            return (
-                <OutlinedNumberField
-                    key={values.indexOf(value)}
-                    label={`Ponto ${values.indexOf(value) + 1}:`}
-                    value={value}
-                    callback={event => this.updateValues(event, values.indexOf(value))} />
-            )
-        })
+        
+        const inputs = values.map(value => (<OutlinedNumberField
+            key={values.indexOf(value)}
+            label={`Ponto ${values.indexOf(value) + 1}:`}
+            value={value}
+            callback={event => this.updateValues(event, values.indexOf(value))} />)
+        )
 
         return ([...inputs, <IconButton onClick={this.addValue} aria-label='Add value to series'> <AddIcon /> </IconButton>])
     }

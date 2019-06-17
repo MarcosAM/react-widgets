@@ -4,10 +4,8 @@ import Chart from './Chart'
 class LineChart extends Component {
 
     render() {
-        const widgetData = this.props.widgetData.map(data => typeof data === 'string' ? parseInt(data) : data)
-
         return (
-            <Chart data={{ title: { text: 'My Chart' }, series: [{ name: 'Profits', data: widgetData }] }} />
+            <Chart data={{ title: { text: 'My Chart' }, series: [{ name: 'Profits', data: this.props.widgetData }] }} />
         )
     }
 }
