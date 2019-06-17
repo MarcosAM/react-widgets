@@ -101,7 +101,7 @@ class EditChartDialog extends Component {
                         <Button onClick={() => this.props.cancel()} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.submit(this.state.values)} color="secondary">
+                        <Button onClick={() => this.props.submit([{ name: 'Profits', data: this.state.values }])} color="secondary">
                             Confirm
                         </Button>
                     </DialogActions>

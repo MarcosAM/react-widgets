@@ -11,9 +11,10 @@ class Body extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            widgetsData: [
-                [1, 5, 3]
-            ],
+            series: [{
+                name: 'Profits',
+                data: [1, 5, 3]
+            }],
             isShowingDialog: false
         }
 
@@ -32,21 +33,19 @@ class Body extends Component {
     }
 
     //TODO só vai atualizar o indice 0
-    updateWidget(newData) {
-        this.setState(state => ({ widgetsData: [newData], isShowingDialog: false }))
+    updateWidget(newSeries) {
+        this.setState(state => ({ series: newSeries, isShowingDialog: false }))
     }
 
     render() {
-        const { widgetsData } = this.state
-
         return (
             <div className={this.props.classes.body} >
                 <Widget title='Chart 1'
                     menuItens={this.menuItens()} >
-                    <LineChart series={[{ name: 'Profits', data: widgetsData[0] }]} />
+                    <LineChart series={this.state.series} />
                 </Widget >
                 <EditChartDialog
-                    widgetData={widgetsData[0]}
+                    widgetData={this.state.series[0].data}
                     isShowing={this.state.isShowingDialog}
                     submit={this.updateWidget}
                     cancel={() => this.setDialogOpen(false)} />
