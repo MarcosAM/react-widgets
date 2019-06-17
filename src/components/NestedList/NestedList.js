@@ -33,6 +33,7 @@ class NestedList extends Component {
         const { classes } = this.props
         const { open } = this.state
         return (
+            /*
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
@@ -52,6 +53,30 @@ class NestedList extends Component {
                                 <StarBorder />
                             </ListItemIcon>
                             <ListItemText primary="Starred" />
+                        </ListItem>
+                    </List>
+                </Collapse>
+            </List>
+            */
+            <List
+                component="nav"
+                aria-labelledby="nested-list-subheader"
+                subheader={this.props.subheader}
+                className={classes.root}>
+                <ListItem button onClick={this.handleClick}>
+                    {this.props.listItens[0].listItem}
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        <ListItem button className={classes.nested}>
+                            {/*
+                            <ListItemIcon>
+                                <StarBorder />
+                            </ListItemIcon>
+                            <ListItemText primary="Starred" />
+                            */}
+                            {this.props.listItens[0].collapseListItens[0]}
                         </ListItem>
                     </List>
                 </Collapse>

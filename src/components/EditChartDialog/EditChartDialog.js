@@ -10,6 +10,7 @@ import OutlinedNumberField from '../OutlinedNumberField'
 import styles from './styles'
 import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
+import ListItemText from '@material-ui/core/ListItemText';
 
 //TODO ele não consegue receber valores negativos
 class EditChartDialog extends Component {
@@ -57,6 +58,9 @@ class EditChartDialog extends Component {
                                 callback={event => this.updateValues(event, 2)} />
                         </div>
                         <NestedList
+                            listItens={[
+                                { listItem: <ListItemText primary={'Series 1'} />, collapseListItens: [<ListItemText primary="Dando certo" />] },
+                            ]}
                             subheader={
                                 <DialogContentText>
                                     Insert new values for the chart
