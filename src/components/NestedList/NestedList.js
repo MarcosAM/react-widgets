@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -29,40 +29,46 @@ class NestedList extends Component {
         this.setState(state => ({ open: !state.open }))
     }
 
+    renderListItens() {
+        return (
+            this.props.listItens.map(listItem => (
+                <Fragment>
+                    <ListItem button onClick={this.handleClick}>
+                        {listItem.listItem}
+                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                    {this.renderCollapseItens(listItem.collapseListItens)}
+                </Fragment>
+            ))
+        )
+    }
+
+    renderCollapseItens(collapseItens) {
+        return (
+            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                    {collapseItens.map(collapseItem => (
+                        <ListItem button className={this.props.classes.nested}>
+                            {collapseItem}
+                        </ListItem>
+                    ))}
+                </List>
+            </Collapse>
+        )
+    }
+
     render() {
         const { classes } = this.props
-        const { open } = this.state
+        //const { open } = this.state
+
         return (
-            /*
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 subheader={this.props.subheader}
                 className={classes.root}>
-                <ListItem button onClick={this.handleClick}>
-                    <ListItemIcon>
-                        <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                    {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        <ListItem button className={classes.nested}>
-                            <ListItemIcon>
-                                <StarBorder />
-                            </ListItemIcon>
-                            <ListItemText primary="Starred" />
-                        </ListItem>
-                    </List>
-                </Collapse>
-            </List>
-            */
-            <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                subheader={this.props.subheader}
-                className={classes.root}>
+                {this.renderListItens()}
+                {/*
                 <ListItem button onClick={this.handleClick}>
                     {this.props.listItens[0].listItem}
                     {open ? <ExpandLess /> : <ExpandMore />}
@@ -70,16 +76,11 @@ class NestedList extends Component {
                 <Collapse in={open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         <ListItem button className={classes.nested}>
-                            {/*
-                            <ListItemIcon>
-                                <StarBorder />
-                            </ListItemIcon>
-                            <ListItemText primary="Starred" />
-                            */}
                             {this.props.listItens[0].collapseListItens[0]}
                         </ListItem>
                     </List>
                 </Collapse>
+                */}
             </List>
         );
     }
