@@ -5,7 +5,7 @@ import styles from './styles'
 
 
 const FloatingActionButton = ({ classes, children }) => (
-    <Fab color="primary" aria-label="Add" className={classes.fab}>
+    <Fab color="secondary" aria-label="Add" className={classes.fab}>
         {children}
     </Fab>
 )
