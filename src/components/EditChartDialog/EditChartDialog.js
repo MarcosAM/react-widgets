@@ -12,9 +12,8 @@ import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
-import AddCircleIcon from '@material-ui/icons/AddCircleOutline'
 import RemoveIcon from '@material-ui/icons/Remove'
-import RemoveCircleIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -58,7 +57,6 @@ class EditChartDialog extends Component {
         this.setState(state => {
             const newData = [...state.series[seriesIndex].data, 0]
 
-            //return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
             return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
     }
@@ -116,7 +114,7 @@ class EditChartDialog extends Component {
                             value={value.name}
                             onChange={event => this.updateSerieName(event.target.value, index)} />
                         <IconButton onClick={() => this.removeSerie(index)} aria-label='Remove serie'>
-                            <RemoveCircleIcon />
+                            <DeleteIcon />
                         </IconButton>
                     </Fragment>,
                 collapseListItens: this.getValueInputs(value.data, index)
@@ -127,11 +125,9 @@ class EditChartDialog extends Component {
             ...listItens,
             {
                 listItem:
-                    <Fragment>
-                        <IconButton onClick={() => this.addSerie()} aria-label='Add a new serie'>
-                            <AddCircleIcon />
-                        </IconButton>
-                    </Fragment>
+                    <Button onClick={() => this.addSerie()} color='primary'>
+                        Add New Serie
+                    </Button>
             }
         ]
     }
