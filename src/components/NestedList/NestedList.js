@@ -19,17 +19,34 @@ class NestedList extends Component {
         super(props)
 
         this.state = {
-            open: false
+            open: false,
+            opens: this.props.listItens.map(() => (false))
         }
 
         this.handleClick = this.handleClick.bind(this)
     }
 
-    handleClick() {
-        this.setState(state => ({ open: !state.open }))
+    handleClick(index) {
+        //this.setState(state => ({ open: !state.open }))
+        this.setState(state => ({ opens: [...state.opens.slice(0, index), !state.opens[index], ...state.opens.slice(index + 1)] }))
     }
 
     renderListItens() {
+        return [...this.props.listItens.entries()].map(entry => {
+            const [index, value] = entry
+
+            return (
+                <Fragment>
+                    <ListItem button onClick={() => this.handleClick(index)}>
+                        {value.listItem}
+                        {this.state.opens[index] ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                    {this.renderCollapseItens(value.collapseListItens, index)}
+                </Fragment>
+            )
+        })
+
+        /*
         return (
             this.props.listItens.map(listItem => (
                 <Fragment>
@@ -41,11 +58,12 @@ class NestedList extends Component {
                 </Fragment>
             ))
         )
+        */
     }
 
-    renderCollapseItens(collapseItens) {
+    renderCollapseItens(collapseItens, index) {
         return (
-            <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+            <Collapse in={this.state.opens[index]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     {collapseItens.map(collapseItem => (
                         <ListItem button className={this.props.classes.nested}>

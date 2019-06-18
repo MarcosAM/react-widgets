@@ -49,7 +49,6 @@ class EditChartDialog extends Component {
         this.setState(state => ({ values: state.values.slice(0, state.values.length - 1) }))
     }
 
-    //TODO parte do pressuposto que só há uma series
     getInputs(values, seriesIndex) {
 
         const inputs = Array.from(values.entries()).map(entry => {
@@ -90,12 +89,6 @@ class EditChartDialog extends Component {
         })
 
         return listItens
-        /*
-        return this.state.series.map(serie => ({
-            listItem: <ListItemText primary={serie.name} />,
-            collapseListItens: this.getInputs(serie.data)
-        }))
-        */
     }
 
     render() {
