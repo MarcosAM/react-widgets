@@ -22,18 +22,15 @@ class EditChartDialog extends Component {
         super(props)
 
         this.state = {
-            values: this.props.widgetData,
             series: this.props.series
         }
 
-        this.updateValues = this.updateValues.bind(this)
-        this.addValue = this.addValue.bind(this)
-        this.removeValue = this.removeValue.bind(this)
+        this.updateSerieValue = this.updateSerieValue.bind(this)
+        this.increaseSerie = this.increaseSerie.bind(this)
+        this.decreaseSerie = this.decreaseSerie.bind(this)
     }
 
-    updateValues(event, index, seriesIndex = 0) {
-        const value = parseInt(event.target.value)
-
+    updateSerieValue(value, index, seriesIndex = 0) {
         if (!isNaN(value)) {
             const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
 
@@ -41,24 +38,19 @@ class EditChartDialog extends Component {
         }
     }
 
-    /*
-    addValue() {
-        this.setState(state => ({ values: [...state.values, 0] }))
-    }
-    */
-    removeValue(index) {
+    decreaseSerie(seriesIndex) {
         this.setState(state => {
-            const newData = state.series[index].data.slice(0, state.series[index].data.length - 1)
+            const newData = state.series[seriesIndex].data.slice(0, state.series[seriesIndex].data.length - 1)
 
-            return ({ series: [...state.series.slice(0, index), { name: state.series[index].name, data: newData }, ...state.series.slice(index + 1)] })
+            return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
         })
     }
 
-    addValue(index) {
+    increaseSerie(seriesIndex) {
         this.setState(state => {
-            const newData = [...state.series[index].data, 0]
+            const newData = [...state.series[seriesIndex].data, 0]
 
-            return ({ series: [...state.series.slice(0, index), { name: state.series[index].name, data: newData }, ...state.series.slice(index + 1)] })
+            return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
         })
     }
 
@@ -72,7 +64,7 @@ class EditChartDialog extends Component {
                     key={index}
                     label={`Ponto ${index + 1}:`}
                     value={value}
-                    callback={event => this.updateValues(event, index, seriesIndex)} />
+                    callback={event => this.updateSerieValue(parseInt(event.target.value), index, seriesIndex)} />
             )
         })
 
@@ -80,10 +72,10 @@ class EditChartDialog extends Component {
             [
                 ...inputs,
                 <Fragment>
-                    <IconButton onClick={() => this.removeValue(seriesIndex)} aria-label='Remove value to series'>
+                    <IconButton onClick={() => this.decreaseSerie(seriesIndex)} aria-label='Remove value to series'>
                         <RemoveIcon />
                     </IconButton>
-                    <IconButton onClick={() => this.addValue(seriesIndex)} aria-label='Add value to series'>
+                    <IconButton onClick={() => this.increaseSerie(seriesIndex)} aria-label='Add value to series'>
                         <AddIcon />
                     </IconButton>
                 </Fragment>

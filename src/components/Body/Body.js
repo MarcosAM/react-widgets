@@ -50,7 +50,6 @@ class Body extends Component {
                 </Widget >
                 <EditChartDialog
                     series={this.state.series}
-                    widgetData={this.state.series[0].data}
                     isShowing={this.state.isShowingDialog}
                     submit={this.updateWidget}
                     cancel={() => this.setDialogOpen(false)} />
