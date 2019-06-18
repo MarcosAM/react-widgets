@@ -5,13 +5,15 @@ import TextField from '@material-ui/core/TextField'
 
 class OutlinedTextField extends Component {
     render() {
-        const { value, label, callback } = this.props
+        const { value, onChange } = this.props
         const { textField } = this.props.classes
 
         return (
             <TextField
-                label="With placeholder"
-                placeholder="Placeholder"
+                //label="With placeholder"
+                //placeholder="Placeholder"
+                value={value}
+                onChange={onChange}
                 className={textField}
                 margin="normal"
                 variant="outlined"

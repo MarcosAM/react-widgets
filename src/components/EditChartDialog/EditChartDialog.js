@@ -10,7 +10,6 @@ import OutlinedNumberField, { OutlinedTextField } from '../OutlinedNumberField'
 import styles from './styles'
 import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
-import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
@@ -28,6 +27,8 @@ class EditChartDialog extends Component {
         this.updateSerieValue = this.updateSerieValue.bind(this)
         this.increaseSerie = this.increaseSerie.bind(this)
         this.decreaseSerie = this.decreaseSerie.bind(this)
+
+        this.updateSerieName = this.updateSerieName.bind(this)
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
@@ -84,13 +85,19 @@ class EditChartDialog extends Component {
         )
     }
 
+    updateSerieName(value, seriesIndex) {
+        this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: value, data: state.series[seriesIndex].data }, ...state.series.slice(seriesIndex + 1)] }))
+    }
+
     getListItens() {
         const listItens = [...this.state.series.entries()].map(entry => {
             const [index, value] = entry
 
             return ({
-                //listItem: <ListItemText primary={value.name} />,
-                listItem: <OutlinedTextField />,
+                listItem:
+                    <OutlinedTextField
+                        value={value.name}
+                        onChange={event => this.updateSerieName(event.target.value, index)} />,
                 collapseListItens: this.getInputs(value.data, index)
             })
         })
