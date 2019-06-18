@@ -31,6 +31,7 @@ class EditChartDialog extends Component {
 
         this.updateSerieName = this.updateSerieName.bind(this)
         this.addSerie = this.addSerie.bind(this)
+        this.removeSerie = this.removeSerie.bind(this)
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
@@ -95,15 +96,24 @@ class EditChartDialog extends Component {
         this.setState(state => ({ series: [...state.series, { name: 'New Series', data: [] }] }))
     }
 
+    removeSerie(seriesIndex) {
+        this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), ...state.series.slice(seriesIndex + 1)] }))
+    }
+
     getListItens() {
         const listItens = [...this.state.series.entries()].map(entry => {
             const [index, value] = entry
 
             return ({
                 listItem:
-                    <OutlinedTextField
-                        value={value.name}
-                        onChange={event => this.updateSerieName(event.target.value, index)} />,
+                    <Fragment>
+                        <OutlinedTextField
+                            value={value.name}
+                            onChange={event => this.updateSerieName(event.target.value, index)} />
+                        <IconButton onClick={() => this.removeSerie(index)} aria-label='Remove serie'>
+                            <RemoveIcon />
+                        </IconButton>
+                    </Fragment>,
                 collapseListItens: this.getInputs(value.data, index)
             })
         })
@@ -113,9 +123,6 @@ class EditChartDialog extends Component {
             {
                 listItem:
                     <Fragment>
-                        <IconButton onClick={() => console.log('Remove série')} aria-label='Remove a serie'>
-                            <RemoveIcon />
-                        </IconButton>
                         <IconButton onClick={() => this.addSerie()} aria-label='Add a new serie'>
                             <AddIcon />
                         </IconButton>
