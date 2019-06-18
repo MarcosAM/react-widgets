@@ -3,21 +3,16 @@ import { withStyles } from '@material-ui/core'
 import styles from './styles'
 import TextField from '@material-ui/core/TextField'
 
-class OutlinedNumberField extends Component {
+class OutlinedTextField extends Component {
     render() {
         const { value, label, callback } = this.props
         const { textField } = this.props.classes
 
         return (
             <TextField
-                label={label}
-                value={value}
-                onChange={callback}
-                type="number"
+                label="With placeholder"
+                placeholder="Placeholder"
                 className={textField}
-                InputLabelProps={{
-                    shrink: true,
-                }}
                 margin="normal"
                 variant="outlined"
             />
@@ -25,4 +20,4 @@ class OutlinedNumberField extends Component {
     }
 }
 
-export default withStyles(styles)(OutlinedNumberField)
+export default withStyles(styles)(OutlinedTextField)

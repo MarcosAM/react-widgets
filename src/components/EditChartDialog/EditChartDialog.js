@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
-import OutlinedNumberField from '../OutlinedNumberField'
+import OutlinedNumberField, { OutlinedTextField } from '../OutlinedNumberField'
 import styles from './styles'
 import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
@@ -89,7 +89,8 @@ class EditChartDialog extends Component {
             const [index, value] = entry
 
             return ({
-                listItem: <ListItemText primary={value.name} />,
+                //listItem: <ListItemText primary={value.name} />,
+                listItem: <OutlinedTextField />,
                 collapseListItens: this.getInputs(value.data, index)
             })
         })
