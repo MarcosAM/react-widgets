@@ -28,7 +28,10 @@ class NestedList extends Component {
         this.setState(state => ({ opens: [...state.opens.slice(0, index), !state.opens[index], ...state.opens.slice(index + 1)] }))
     }
 
-    renderExpandIconsAt(index) {
+    renderExpandIconsAt(index, doesExpand) {
+        if (!doesExpand)
+            return
+
         return (
             <IconButton onClick={() => this.handleClick(index)}>
                 {this.state.opens[index] ? <ExpandLess /> : <ExpandMore />}
@@ -40,12 +43,11 @@ class NestedList extends Component {
         return [...this.props.listItens.entries()].map(entry => {
             const [index, value] = entry
 
-            console.log(<ExpandMore />)
             return (
                 <Fragment>
                     <ListItem>
                         {value.listItem}
-                        {this.renderExpandIconsAt(index)}
+                        {this.renderExpandIconsAt(index, value.collapseListItens)}
                     </ListItem>
                     {this.renderCollapseItens(value.collapseListItens, index)}
                 </Fragment>
@@ -54,6 +56,9 @@ class NestedList extends Component {
     }
 
     renderCollapseItens(collapseItens, index) {
+        if (!collapseItens)
+            return
+
         return (
             <Collapse in={this.state.opens[index]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>

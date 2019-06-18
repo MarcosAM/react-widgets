@@ -16,6 +16,7 @@ import RemoveIcon from '@material-ui/icons/Remove'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
+//TODO refatorar isso para uma classe que cuida de todas as séries e várias classes filhas que cuidam de cada classe...talvez
 class EditChartDialog extends Component {
     constructor(props) {
         super(props)
@@ -102,7 +103,20 @@ class EditChartDialog extends Component {
             })
         })
 
-        return listItens
+        return [
+            ...listItens,
+            {
+                listItem:
+                    <Fragment>
+                        <IconButton onClick={() => console.log('Remove série')} aria-label='Remove value to series'>
+                            <RemoveIcon />
+                        </IconButton>
+                        <IconButton onClick={() => console.log('Adiciona série')} aria-label='Add value to series'>
+                            <AddIcon />
+                        </IconButton>
+                    </Fragment>
+            }
+        ]
     }
 
     render() {
