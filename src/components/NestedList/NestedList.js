@@ -46,8 +46,8 @@ class NestedList extends Component {
             return (
                 <Fragment>
                     <ListItem>
-                        {value.listItem}
                         {this.renderExpandIconsAt(index, value.collapseListItens)}
+                        {value.listItem}
                     </ListItem>
                     {this.renderCollapseItens(value.collapseListItens, index)}
                 </Fragment>

@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
 import AddCircleIcon from '@material-ui/icons/AddCircleOutline'
 import RemoveIcon from '@material-ui/icons/Remove'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircleOutline'
+import RemoveCircleIcon from '@material-ui/icons/Delete'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -34,6 +34,7 @@ class EditChartDialog extends Component {
         this.updateSerieName = this.updateSerieName.bind(this)
         this.addSerie = this.addSerie.bind(this)
         this.removeSerie = this.removeSerie.bind(this)
+        this.updateArrayAt = this.updateArrayAt.bind(this)
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
@@ -57,11 +58,12 @@ class EditChartDialog extends Component {
         this.setState(state => {
             const newData = [...state.series[seriesIndex].data, 0]
 
-            return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
+            //return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
+            return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
     }
 
-    getInputs(values, seriesIndex) {
+    getValueInputs(values, seriesIndex) {
 
         const inputs = Array.from(values.entries()).map(entry => {
             const [index, value] = entry
@@ -91,7 +93,8 @@ class EditChartDialog extends Component {
     }
 
     updateSerieName(value, seriesIndex) {
-        this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: value, data: state.series[seriesIndex].data }, ...state.series.slice(seriesIndex + 1)] }))
+        const newState = { series: this.updateArrayAt(seriesIndex, { name: value, data: this.state.series[seriesIndex].data }, this.state.series) }
+        this.setState(state => (newState))
     }
 
     addSerie() {
@@ -116,7 +119,7 @@ class EditChartDialog extends Component {
                             <RemoveCircleIcon />
                         </IconButton>
                     </Fragment>,
-                collapseListItens: this.getInputs(value.data, index)
+                collapseListItens: this.getValueInputs(value.data, index)
             })
         })
 
@@ -131,6 +134,10 @@ class EditChartDialog extends Component {
                     </Fragment>
             }
         ]
+    }
+
+    updateArrayAt(index, obj, arr) {
+        return ([...arr.slice(0, index), obj, ...arr.slice(index + 1)])
     }
 
     render() {
