@@ -28,6 +28,7 @@ class Body extends Component {
                     data: [2, 3, 8]
                 }]
             ],
+            /*
             series: [{
                 name: 'Profits',
                 data: [1, 5, 3]
@@ -35,6 +36,7 @@ class Body extends Component {
                 name: 'Other Profits',
                 data: [2, 3, 8]
             }],
+            */
             isShowingDialog: false,
             editingWidget: -1
         }
@@ -58,11 +60,9 @@ class Body extends Component {
 
     //TODO só vai atualizar o indice 0
     updateWidget(newSeries) {
-        const newWidgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
-        //TODO testar se posso trocar tudo por um widgets
-        const newState = { widgets: newWidgets, isShowingDialog: false }
+        const widgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
+        const newState = { widgets, isShowingDialog: false }
         this.setState(newState)
-        //this.setState(state => ({ series: newSeries, isShowingDialog: false }))
     }
 
     renderWidgets() {
@@ -98,18 +98,15 @@ class Body extends Component {
     render() {
         return (
             <div className={this.props.classes.body} >
-                {/*
-                <Widget title='Chart 1'
-                    menuItens={this.menuItens()} >
-                    <LineChart series={this.state.series} />
-                </Widget >
-                */}
                 {this.renderWidgets()}
+                {/*
                 <EditChartDialog
                     series={this.state.series}
                     isShowing={this.state.isShowingDialog}
                     submit={this.updateWidget}
                     cancel={() => this.setDialogOpen(false)} />
+                */}
+                {this.renderEditChartDialog()}
                 <Fab >
                     <AddIcon />
                 </Fab>

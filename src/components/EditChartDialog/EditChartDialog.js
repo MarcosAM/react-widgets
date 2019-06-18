@@ -23,7 +23,7 @@ class EditChartDialog extends Component {
         super(props)
 
         this.state = {
-            series: this.props.series
+            series: []
         }
 
         this.updateSerieValue = this.updateSerieValue.bind(this)
@@ -34,6 +34,11 @@ class EditChartDialog extends Component {
         this.addSerie = this.addSerie.bind(this)
         this.removeSerie = this.removeSerie.bind(this)
         this.updateArrayAt = this.updateArrayAt.bind(this)
+    }
+
+
+    componentWillReceiveProps(newProps) {
+        this.setState({ series: newProps.series })
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
