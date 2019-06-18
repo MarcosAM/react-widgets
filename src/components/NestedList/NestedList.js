@@ -11,8 +11,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import styles from './styles'
 import { withStyles } from '@material-ui/core'
-
-import OutlinedNumberField from '../OutlinedNumberField'
+import IconButton from '@material-ui/core/IconButton';
 
 class NestedList extends Component {
     constructor(props) {
@@ -29,15 +28,24 @@ class NestedList extends Component {
         this.setState(state => ({ opens: [...state.opens.slice(0, index), !state.opens[index], ...state.opens.slice(index + 1)] }))
     }
 
+    renderExpandIconsAt(index) {
+        return (
+            <IconButton onClick={() => this.handleClick(index)}>
+                {this.state.opens[index] ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+        )
+    }
+
     renderListItens() {
         return [...this.props.listItens.entries()].map(entry => {
             const [index, value] = entry
 
+            console.log(<ExpandMore />)
             return (
                 <Fragment>
-                    <ListItem button onClick={() => this.handleClick(index)}>
+                    <ListItem>
                         {value.listItem}
-                        {this.state.opens[index] ? <ExpandLess /> : <ExpandMore />}
+                        {this.renderExpandIconsAt(index)}
                     </ListItem>
                     {this.renderCollapseItens(value.collapseListItens, index)}
                 </Fragment>
@@ -50,7 +58,7 @@ class NestedList extends Component {
             <Collapse in={this.state.opens[index]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                     {collapseItens.map(collapseItem => (
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem className={this.props.classes.nested}>
                             {collapseItem}
                         </ListItem>
                     ))}

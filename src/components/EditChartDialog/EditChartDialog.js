@@ -42,6 +42,7 @@ class EditChartDialog extends Component {
         this.setState(state => {
             const newData = state.series[seriesIndex].data.slice(0, state.series[seriesIndex].data.length - 1)
 
+            //TODO refatorar isso aqui para ser uma função separada
             return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
         })
     }
