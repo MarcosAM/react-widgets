@@ -4,8 +4,8 @@ import Fab from '@material-ui/core/Fab'
 import styles from './styles'
 
 
-const FloatingActionButton = ({ classes, children }) => (
-    <Fab color="secondary" aria-label="Add" className={classes.fab}>
+const FloatingActionButton = ({ classes, children, onClick }) => (
+    <Fab onClick={onClick} color="secondary" aria-label="Add" className={classes.fab}>
         {children}
     </Fab>
 )

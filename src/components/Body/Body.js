@@ -28,26 +28,18 @@ class Body extends Component {
                     data: [2, 3, 8]
                 }]
             ],
-            /*
-            series: [{
-                name: 'Profits',
-                data: [1, 5, 3]
-            }, {
-                name: 'Other Profits',
-                data: [2, 3, 8]
-            }],
-            */
             isShowingDialog: false,
-            editingWidget: -1
+            editingWidget: 0
         }
 
         this.setDialogOpen = this.setDialogOpen.bind(this)
         this.updateWidget = this.updateWidget.bind(this)
 
+        this.addWidget = this.addWidget.bind(this)
+
         this.updateArrayAt = this.updateArrayAt.bind(this)
     }
 
-    //TODO passar para o EditDialog informação de qual widget está sendo alterado
     menuItens(widgetIndex) {
         return (
             [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) }]
@@ -58,7 +50,6 @@ class Body extends Component {
         this.setState(state => ({ isShowingDialog: open, editingWidget: widgetIndex }))
     }
 
-    //TODO só vai atualizar o indice 0
     updateWidget(newSeries) {
         const widgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
         const newState = { widgets, isShowingDialog: false }
@@ -95,19 +86,18 @@ class Body extends Component {
         return ([...arr.slice(0, index), obj, ...arr.slice(index + 1)])
     }
 
+    addWidget() {
+        const widgets = [...this.state.widgets, []]
+        const newState = { widgets }
+        this.setState(newState)
+    }
+
     render() {
         return (
             <div className={this.props.classes.body} >
                 {this.renderWidgets()}
-                {/*
-                <EditChartDialog
-                    series={this.state.series}
-                    isShowing={this.state.isShowingDialog}
-                    submit={this.updateWidget}
-                    cancel={() => this.setDialogOpen(false)} />
-                */}
                 {this.renderEditChartDialog()}
-                <Fab >
+                <Fab onClick={this.addWidget}>
                     <AddIcon />
                 </Fab>
             </div >
