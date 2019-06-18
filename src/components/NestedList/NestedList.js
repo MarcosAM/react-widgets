@@ -19,7 +19,6 @@ class NestedList extends Component {
         super(props)
 
         this.state = {
-            open: false,
             opens: this.props.listItens.map(() => (false))
         }
 
@@ -27,7 +26,6 @@ class NestedList extends Component {
     }
 
     handleClick(index) {
-        //this.setState(state => ({ open: !state.open }))
         this.setState(state => ({ opens: [...state.opens.slice(0, index), !state.opens[index], ...state.opens.slice(index + 1)] }))
     }
 
@@ -45,20 +43,6 @@ class NestedList extends Component {
                 </Fragment>
             )
         })
-
-        /*
-        return (
-            this.props.listItens.map(listItem => (
-                <Fragment>
-                    <ListItem button onClick={this.handleClick}>
-                        {listItem.listItem}
-                        {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                    </ListItem>
-                    {this.renderCollapseItens(listItem.collapseListItens)}
-                </Fragment>
-            ))
-        )
-        */
     }
 
     renderCollapseItens(collapseItens, index) {
