@@ -19,6 +19,13 @@ class Body extends Component {
                 }, {
                     name: 'Other Profits',
                     data: [2, 3, 8]
+                }],
+                [{
+                    name: 'Profits',
+                    data: [1, 5, 3]
+                }, {
+                    name: 'Other Profits',
+                    data: [2, 3, 8]
                 }]
             ],
             series: [{
@@ -28,52 +35,75 @@ class Body extends Component {
                 name: 'Other Profits',
                 data: [2, 3, 8]
             }],
-            isShowingDialog: false
+            isShowingDialog: false,
+            editingWidget: -1
         }
 
         this.setDialogOpen = this.setDialogOpen.bind(this)
         this.updateWidget = this.updateWidget.bind(this)
+
+        this.updateArrayAt = this.updateArrayAt.bind(this)
     }
 
     //TODO passar para o EditDialog informação de qual widget está sendo alterado
-    menuItens() {
+    menuItens(widgetIndex) {
         return (
-            [{ text: 'Edit', click: () => this.setDialogOpen(true) }]
+            [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) }]
         )
     }
 
-    setDialogOpen(open) {
-        this.setState(state => ({ isShowingDialog: open }))
+    setDialogOpen(open, widgetIndex) {
+        this.setState(state => ({ isShowingDialog: open, editingWidget: widgetIndex }))
     }
 
     //TODO só vai atualizar o indice 0
     updateWidget(newSeries) {
-        this.setState(state => ({ series: newSeries, isShowingDialog: false }))
+        const newWidgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
+        //TODO testar se posso trocar tudo por um widgets
+        const newState = { widgets: newWidgets, isShowingDialog: false }
+        this.setState(newState)
+        //this.setState(state => ({ series: newSeries, isShowingDialog: false }))
     }
 
     renderWidgets() {
         const widgets = [...this.state.widgets.entries()]
 
         return (widgets.map(entry => {
-            const [key, value] = entry
+            const [index, value] = entry
 
             return (
                 <Widget
                     title='Chart'
-                    menuItens={this.menuItens()}>
+                    menuItens={this.menuItens(index)}>
                     <LineChart series={value} />
                 </Widget>
             )
         }))
     }
 
+    renderEditChartDialog() {
+        return (
+            <EditChartDialog
+                series={this.state.widgets[this.state.editingWidget]}
+                isShowing={this.state.isShowingDialog}
+                submit={this.updateWidget}
+                cancel={() => this.setDialogOpen(false)} />
+        )
+    }
+
+    updateArrayAt(index, obj, arr) {
+        return ([...arr.slice(0, index), obj, ...arr.slice(index + 1)])
+    }
+
     render() {
         return (
             <div className={this.props.classes.body} >
+                {/*
                 <Widget title='Chart 1'
                     menuItens={this.menuItens()} >
                     <LineChart series={this.state.series} />
                 </Widget >
+                */}
                 {this.renderWidgets()}
                 <EditChartDialog
                     series={this.state.series}
