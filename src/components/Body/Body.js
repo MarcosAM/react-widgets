@@ -89,7 +89,13 @@ class Body extends Component {
     addWidget() {
         const widgets = [...this.state.widgets, []]
         const newState = { widgets }
-        this.setState(newState, this.setDialogOpen(true, widgets.length - 1))
+        this.setState(newState)
+        /*
+        this.setState(newState, () => {
+            window.scrollBy(0, window.innerHeight)
+            this.setDialogOpen(true, widgets.length - 1)
+        })
+        */
     }
 
     render() {
