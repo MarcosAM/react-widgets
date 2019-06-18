@@ -36,13 +36,14 @@ class Body extends Component {
         this.updateWidget = this.updateWidget.bind(this)
 
         this.addWidget = this.addWidget.bind(this)
+        this.removeWidget = this.removeWidget.bind(this)
 
         this.updateArrayAt = this.updateArrayAt.bind(this)
     }
 
     menuItens(widgetIndex) {
         return (
-            [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) }]
+            [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) }, { text: 'Delete', click: () => this.removeWidget(widgetIndex) }]
         )
     }
 
@@ -96,6 +97,12 @@ class Body extends Component {
             this.setDialogOpen(true, widgets.length - 1)
         })
         */
+    }
+
+    removeWidget(index) {
+        const widgets = [...this.state.widgets.slice(0, index), ...this.state.widgets.slice(index + 1)]
+        console.log(widgets)
+        this.setState({ widgets })
     }
 
     render() {
