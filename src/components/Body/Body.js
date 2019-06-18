@@ -47,7 +47,7 @@ class Body extends Component {
     }
 
     setDialogOpen(open, widgetIndex) {
-        this.setState(state => ({ isShowingDialog: open, editingWidget: widgetIndex }))
+        this.setState(state => ({ isShowingDialog: open, editingWidget: widgetIndex || this.state.editingWidget }))
     }
 
     updateWidget(newSeries) {
@@ -89,7 +89,7 @@ class Body extends Component {
     addWidget() {
         const widgets = [...this.state.widgets, []]
         const newState = { widgets }
-        this.setState(newState)
+        this.setState(newState, this.setDialogOpen(true, widgets.length - 1))
     }
 
     render() {
