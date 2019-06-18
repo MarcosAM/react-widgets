@@ -15,7 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 
-//TODO ele não consegue receber valores negativos
+//TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
 class EditChartDialog extends Component {
     constructor(props) {
@@ -31,11 +31,14 @@ class EditChartDialog extends Component {
         this.removeValue = this.removeValue.bind(this)
     }
 
-    updateValues(event, index) {
+    updateValues(event, index, seriesIndex = 0) {
         const value = parseInt(event.target.value)
 
-        if (!isNaN(value))
-            this.setState(state => ({ values: [...state.values.slice(0, index), parseInt(value), ...state.values.slice(index + 1)] }))
+        if (!isNaN(value)) {
+            const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
+
+            this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] }))
+        }
     }
 
     addValue() {
@@ -48,7 +51,6 @@ class EditChartDialog extends Component {
 
     //TODO parte do pressuposto que só há uma series
     getInputs(values) {
-        //const { values } = this.state
 
         const inputs = Array.from(values.entries()).map(entry => {
             const [index, value] = entry
@@ -92,14 +94,6 @@ class EditChartDialog extends Component {
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <NestedList
-                            /*
-                            listItens={[
-                                {
-                                    listItem: <ListItemText primary={'Series 1'} />,
-                                    collapseListItens: this.getInputs(this.state.values)
-                                }
-                            ]}
-                            */
                             listItens={this.getListItens()}
                             subheader={
                                 <DialogContentText>
@@ -112,7 +106,7 @@ class EditChartDialog extends Component {
                         <Button onClick={() => this.props.cancel()} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.submit([{ name: 'Profits', data: this.state.values }])} color="secondary">
+                        <Button onClick={() => this.props.submit(this.state.series)} variant='contained' color='secondary'>
                             Confirm
                         </Button>
                     </DialogActions>
