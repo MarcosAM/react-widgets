@@ -30,6 +30,7 @@ class EditChartDialog extends Component {
         this.decreaseSerie = this.decreaseSerie.bind(this)
 
         this.updateSerieName = this.updateSerieName.bind(this)
+        this.addSerie = this.addSerie.bind(this)
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
@@ -90,6 +91,10 @@ class EditChartDialog extends Component {
         this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: value, data: state.series[seriesIndex].data }, ...state.series.slice(seriesIndex + 1)] }))
     }
 
+    addSerie() {
+        this.setState(state => ({ series: [...state.series, { name: 'New Series', data: [] }] }))
+    }
+
     getListItens() {
         const listItens = [...this.state.series.entries()].map(entry => {
             const [index, value] = entry
@@ -108,10 +113,10 @@ class EditChartDialog extends Component {
             {
                 listItem:
                     <Fragment>
-                        <IconButton onClick={() => console.log('Remove série')} aria-label='Remove value to series'>
+                        <IconButton onClick={() => console.log('Remove série')} aria-label='Remove a serie'>
                             <RemoveIcon />
                         </IconButton>
-                        <IconButton onClick={() => console.log('Adiciona série')} aria-label='Add value to series'>
+                        <IconButton onClick={() => this.addSerie()} aria-label='Add a new serie'>
                             <AddIcon />
                         </IconButton>
                     </Fragment>
