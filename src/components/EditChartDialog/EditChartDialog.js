@@ -12,7 +12,9 @@ import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
+import AddCircleIcon from '@material-ui/icons/AddCircleOutline'
 import RemoveIcon from '@material-ui/icons/Remove'
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircleOutline'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -111,7 +113,7 @@ class EditChartDialog extends Component {
                             value={value.name}
                             onChange={event => this.updateSerieName(event.target.value, index)} />
                         <IconButton onClick={() => this.removeSerie(index)} aria-label='Remove serie'>
-                            <RemoveIcon />
+                            <RemoveCircleIcon />
                         </IconButton>
                     </Fragment>,
                 collapseListItens: this.getInputs(value.data, index)
@@ -124,7 +126,7 @@ class EditChartDialog extends Component {
                 listItem:
                     <Fragment>
                         <IconButton onClick={() => this.addSerie()} aria-label='Add a new serie'>
-                            <AddIcon />
+                            <AddCircleIcon />
                         </IconButton>
                     </Fragment>
             }
