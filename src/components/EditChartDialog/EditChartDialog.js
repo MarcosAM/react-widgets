@@ -46,8 +46,12 @@ class EditChartDialog extends Component {
         this.setState(state => ({ values: [...state.values, 0] }))
     }
     */
-    removeValue() {
-        this.setState(state => ({ values: state.values.slice(0, state.values.length - 1) }))
+    removeValue(index) {
+        this.setState(state => {
+            const newData = state.series[index].data.slice(0, state.series[index].data.length - 1)
+
+            return ({ series: [...state.series.slice(0, index), { name: state.series[index].name, data: newData }, ...state.series.slice(index + 1)] })
+        })
     }
 
     addValue(index) {
@@ -76,7 +80,7 @@ class EditChartDialog extends Component {
             [
                 ...inputs,
                 <Fragment>
-                    <IconButton onClick={this.removeValue} aria-label='Remove value to series'>
+                    <IconButton onClick={() => this.removeValue(seriesIndex)} aria-label='Remove value to series'>
                         <RemoveIcon />
                     </IconButton>
                     <IconButton onClick={() => this.addValue(seriesIndex)} aria-label='Add value to series'>
