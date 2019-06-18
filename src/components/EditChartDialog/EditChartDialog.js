@@ -50,7 +50,7 @@ class EditChartDialog extends Component {
     }
 
     //TODO parte do pressuposto que só há uma series
-    getInputs(values) {
+    getInputs(values, seriesIndex) {
 
         const inputs = Array.from(values.entries()).map(entry => {
             const [index, value] = entry
@@ -60,7 +60,7 @@ class EditChartDialog extends Component {
                     key={index}
                     label={`Ponto ${index + 1}:`}
                     value={value}
-                    callback={event => this.updateValues(event, index)} />
+                    callback={event => this.updateValues(event, index, seriesIndex)} />
             )
         })
 
@@ -80,10 +80,22 @@ class EditChartDialog extends Component {
     }
 
     getListItens() {
+        const listItens = [...this.state.series.entries()].map(entry => {
+            const [index, value] = entry
+
+            return ({
+                listItem: <ListItemText primary={value.name} />,
+                collapseListItens: this.getInputs(value.data, index)
+            })
+        })
+
+        return listItens
+        /*
         return this.state.series.map(serie => ({
             listItem: <ListItemText primary={serie.name} />,
             collapseListItens: this.getInputs(serie.data)
         }))
+        */
     }
 
     render() {

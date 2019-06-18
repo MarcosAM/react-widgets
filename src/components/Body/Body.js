@@ -14,7 +14,11 @@ class Body extends Component {
             series: [{
                 name: 'Profits',
                 data: [1, 5, 3]
-            }],
+            }, {
+                name: 'Other Profits',
+                data: [2, 3, 8]
+            }
+            ],
             isShowingDialog: false
         }
 
