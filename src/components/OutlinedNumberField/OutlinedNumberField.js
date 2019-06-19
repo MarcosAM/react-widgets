@@ -20,6 +20,7 @@ class OutlinedNumberField extends Component {
                 }}
                 margin="normal"
                 variant="outlined"
+                
             />
         )
     }

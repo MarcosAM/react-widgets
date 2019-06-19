@@ -62,7 +62,7 @@ class EditChartDialog extends Component {
 
     increaseSerie(seriesIndex) {
         this.setState(state => {
-            const newData = [...state.series[seriesIndex].data, [0, Date.now()]]
+            const newData = [...state.series[seriesIndex].data, [Date.now(), 0]]
 
             return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
@@ -80,7 +80,9 @@ class EditChartDialog extends Component {
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
                         callback={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+                    {/*
                     <DateTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
+                    */}
                 </Fragment>
             )
         })
@@ -149,7 +151,7 @@ class EditChartDialog extends Component {
     render() {
         return (
             <div>
-                <Dialog open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
+                <Dialog fullScreen open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
