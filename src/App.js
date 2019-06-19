@@ -4,15 +4,16 @@ import Body from './components/Body'
 
 //TODO deletar isso aqui talvez
 import SeriesDAO from './components/SeriesDAO/SeriesDAO'
+import EditMaterialTable from './components/EditMaterialTable'
 
 function App() {
     return (
         <div className="App">
+            {/*
             <Header title='Delfos' />
             <SeriesDAO />
-            {/*
-            <Body />
             */}
+            <EditMaterialTable />
         </div>
     );
 }
