@@ -13,6 +13,13 @@ class Body extends Component {
         super(props)
         this.state = {
             widgets: [
+                [
+                    {
+                        name: 'Series',
+                        data: this.props.serie
+                    }
+                ]
+                /*
                 [{
                     name: 'Profits',
                     data: [1, 5, 3]
@@ -27,6 +34,7 @@ class Body extends Component {
                     name: 'Other Profits',
                     data: [2, 3, 8]
                 }]
+                */
             ],
             isShowingDialog: false,
             editingWidget: 0
@@ -39,6 +47,10 @@ class Body extends Component {
         this.removeWidget = this.removeWidget.bind(this)
 
         this.updateArrayAt = this.updateArrayAt.bind(this)
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({ widgets: [[{ name: 'Series', data: newProps.serie }]] })
     }
 
     menuItens(widgetIndex) {
