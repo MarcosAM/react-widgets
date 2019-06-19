@@ -19,22 +19,6 @@ class Body extends Component {
                         data: this.props.serie
                     }
                 ]
-                /*
-                [{
-                    name: 'Profits',
-                    data: [1, 5, 3]
-                }, {
-                    name: 'Other Profits',
-                    data: [2, 3, 8]
-                }],
-                [{
-                    name: 'Profits',
-                    data: [1, 5, 3]
-                }, {
-                    name: 'Other Profits',
-                    data: [2, 3, 8]
-                }]
-                */
             ],
             isShowingDialog: false,
             editingWidget: 0

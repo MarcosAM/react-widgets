@@ -42,11 +42,12 @@ class EditChartDialog extends Component {
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
-        if (!isNaN(value)) {
-            const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
+        //TODO validar se é número ou não de outra forma
+        //if (!isNaN(value)) {
+        const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
 
-            this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] }))
-        }
+        this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] }))
+        //}
     }
 
     decreaseSerie(seriesIndex) {
@@ -60,7 +61,7 @@ class EditChartDialog extends Component {
 
     increaseSerie(seriesIndex) {
         this.setState(state => {
-            const newData = [...state.series[seriesIndex].data, 0]
+            const newData = [...state.series[seriesIndex].data, [0, Date.now()]]
 
             return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
@@ -72,11 +73,16 @@ class EditChartDialog extends Component {
             const [index, value] = entry
 
             return (
-                <OutlinedNumberField
-                    key={index}
-                    label={`Ponto ${index + 1}:`}
-                    value={value}
-                    callback={event => this.updateSerieValue(parseInt(event.target.value), index, seriesIndex)} />
+                <Fragment>
+                    <OutlinedNumberField
+                        key={index}
+                        label={`Ponto ${index + 1}:`}
+                        value={value[1]}
+                        callback={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+                    <OutlinedNumberField
+                        value={value[0]}
+                    />
+                </Fragment>
             )
         })
 
