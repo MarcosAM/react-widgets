@@ -26,6 +26,7 @@ class SeriesDAO extends Component {
 
             return (
                 [Date.parse(sampleTime.concat(' +00:00')), series[index]]
+                //[sampleTime, series[index]]
             )
         })
 

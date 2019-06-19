@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
+import DateTimePicker from '../DateTimePicker'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -79,9 +80,7 @@ class EditChartDialog extends Component {
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
                         callback={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
-                    <OutlinedNumberField
-                        value={value[0]}
-                    />
+                    <DateTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
                 </Fragment>
             )
         })
