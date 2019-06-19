@@ -17,8 +17,21 @@ class SeriesDAO extends Component {
 
     async getSeries() {
         const { data: randomSeries } = await axios.get('https://api-2.beta.delfos.im/dummy/random_series')
-        console.log(randomSeries.series)
-        this.setState({ serie: randomSeries.series })
+        console.log(randomSeries)
+        const sampleTimeEntries = [...randomSeries.sample_time.entries()]
+        const { series } = randomSeries
+
+        const serie = sampleTimeEntries.map(entry => {
+            const [index, sampleTime] = entry
+
+            return (
+                [Date.parse(sampleTime.concat(' +00:00')), series[index]]
+            )
+        })
+
+        console.log(serie)
+
+        this.setState({ serie })
     }
 
     render() {

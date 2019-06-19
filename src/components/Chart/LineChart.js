@@ -5,7 +5,7 @@ class LineChart extends Component {
 
     render() {
         return (
-            <Chart data={{ title: { text: 'My Chart' }, series: this.props.series }} />
+            <Chart data={{ title: { text: 'My Chart' }, xAxis: { type: 'datetime' }, series: this.props.series }} />
         )
     }
 }
