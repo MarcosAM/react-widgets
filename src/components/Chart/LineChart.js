@@ -11,14 +11,17 @@ class LineChart extends Component {
                     ...{ data: serie.data.map(point => ([Date.parse(point[0]), point[1]])) }
                 }
             ))
-            
+
         return (
             <Chart data={{
                 title: { text: 'My Chart' },
                 xAxis: {
                     type: 'datetime',
                 },
-                series: convertedSeries
+                series: convertedSeries,
+                credits: {
+                    enabled: false
+                }
             }} />
         )
     }
