@@ -45,7 +45,6 @@ class EditByStringDialog extends Component {
                     <DialogContent>
                         <TextField
                             //TODO transformar isso aqui em um style
-                            className={{ width: '100%' }}
                             id="outlined-dense-multiline"
                             label="Chart"
                             margin="dense"
