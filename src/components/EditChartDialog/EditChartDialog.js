@@ -65,7 +65,7 @@ class EditChartDialog extends Component {
 
     increaseSerie(seriesIndex) {
         this.setState(state => {
-            const newData = [...state.series[seriesIndex].data, [Date.now(), 0]]
+            const newData = [...state.series[seriesIndex].data, [new Date().toISOString().replace('Z', ''), 0]]
 
             return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
@@ -120,7 +120,9 @@ class EditChartDialog extends Component {
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
                         onChange={event => this.updateSerieValue([value[0], event.target.value], index, seriesIndex)} />
-                    <OutlinedDataTimePicker value={value[0]} />
+                    <OutlinedDataTimePicker value={value[0]} onChange={event => {
+                        return this.updateSerieValue([event.target.value, value[1]], index, seriesIndex)
+                    }} />
                 </Fragment>
             )
         })

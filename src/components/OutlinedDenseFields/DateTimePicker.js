@@ -15,6 +15,7 @@ class DateTimePicker extends Component {
                 InputLabelProps={{
                     shrink: true,
                 }}
+                onChange={this.props.onChange}
                 margin="dense"
                 variant='outlined' />
         )
