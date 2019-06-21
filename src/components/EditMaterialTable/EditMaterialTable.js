@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import MaterialTable from 'material-table';
+import axios from 'axios';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowUpward from '@material-ui/icons/ArrowUpward';
@@ -42,13 +43,47 @@ const tableIcons = {
 export default function MaterialTableDemo() {
     const [state, setState] = React.useState({
         columns: [
-            { title: 'Serie', field: 'value', type: 'numeric' },
+            { title: 'Value', field: 'value', type: 'numeric' },
             { title: 'Sample Time', field: 'time', type: 'datetime' },
         ],
-        data: [
+        data: query =>
+            new Promise((resolve, reject) => {
+                /*
+                let url = 'https://reqres.in/api/users?'
+                url += 'per_page=' + query.pageSize
+                url += '&page=' + (query.page + 1)
+                */
+                const url = 'https://api-2.beta.delfos.im/dummy/random_series'
+                fetch(url)
+                    .then(response => response.json())
+                    .then(result => {
+
+                        const sampleTimeEntries = [...result.sample_time.entries()]
+                        const { series } = result
+
+                        const serie = sampleTimeEntries.map(entry => {
+                            const [index, sampleTime] = entry
+
+                            return (
+                                //[Date.parse(sampleTime.concat(' +00:00')), series[index]]
+                                //[sampleTime, series[index]]
+                                { value: series[index], time: sampleTime }
+                            )
+                        })
+
+                        resolve({
+                            data: serie,
+                            page: 0,
+                            totalCount: serie.length
+                        })
+                    })
+            })
+        /*
+        [
             { value: 10, time: 10 },
             { value: 20, time: 8 }
-        ],
+        ]
+        */,
     });
 
     return (
