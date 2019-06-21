@@ -13,7 +13,6 @@ function App() {
             {/*
             <EditMaterialTable />
             */}
-            <Teste />
             <Header title='Delfos' />
             <SeriesDAO />
         </div>

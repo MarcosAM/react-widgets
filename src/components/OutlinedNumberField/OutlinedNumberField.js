@@ -18,9 +18,9 @@ class OutlinedNumberField extends Component {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                margin="normal"
+                margin="dense"
                 variant="outlined"
-                
+
             />
         )
     }

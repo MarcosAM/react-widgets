@@ -6,6 +6,7 @@ import LineChart from '../Chart'
 import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
 import EditChartDialog from '../EditChartDialog'
+//import EditChartDialog from '../EditByStringDialog'
 
 //TODO adicionar a possibilidade de alterar nome de widget
 class Body extends Component {
@@ -87,12 +88,6 @@ class Body extends Component {
         const widgets = [...this.state.widgets, []]
         const newState = { widgets }
         this.setState(newState)
-        /*
-        this.setState(newState, () => {
-            window.scrollBy(0, window.innerHeight)
-            this.setDialogOpen(true, widgets.length - 1)
-        })
-        */
     }
 
     removeWidget(index) {

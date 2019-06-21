@@ -10,12 +10,10 @@ class OutlinedTextField extends Component {
 
         return (
             <TextField
-                //label="With placeholder"
-                //placeholder="Placeholder"
                 value={value}
                 onChange={onChange}
                 className={textField}
-                margin="normal"
+                margin="dense"
                 variant="outlined"
             />
         )

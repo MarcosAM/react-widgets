@@ -11,12 +11,12 @@ class DateTimePicker extends Component {
                 id="datetime-local"
                 label="Next appointment"
                 type="datetime-local"
-                //defaultValue="2017-05-24T10:30"
                 value={this.props.value}
                 className={this.props.classes.textField}
                 InputLabelProps={{
                     shrink: true,
                 }}
+                margin="dense"
                 variant='outlined' />
         )
     }
