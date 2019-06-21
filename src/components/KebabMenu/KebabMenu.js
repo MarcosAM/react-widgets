@@ -36,7 +36,7 @@ class KebabMenu extends Component {
     }
 
     renderMenuItens(menuItens) {
-        return menuItens.map(menuItem => <MenuItem onClick={(e) => this.handleMenuItemClick(menuItem.click)}>{menuItem.text}</MenuItem>)
+        return menuItens.map(menuItem => <MenuItem key={Math.random()} onClick={(e) => this.handleMenuItemClick(menuItem.click)}>{menuItem.text}</MenuItem>)
     }
 
     render() {

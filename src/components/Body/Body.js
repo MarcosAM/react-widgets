@@ -44,7 +44,7 @@ class Body extends Component {
     menuItens(widgetIndex) {
         return (
             [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) },
-            { text: 'View', click: () => this.setIsViewing(true) },
+            { text: 'View', click: () => this.setIsViewing(true, widgetIndex) },
             { text: 'Delete', click: () => this.removeWidget(widgetIndex) }]
         )
     }
@@ -53,13 +53,13 @@ class Body extends Component {
         this.setState(state => ({ isEditing: open, editingWidget: widgetIndex || this.state.editingWidget }))
     }
 
-    setIsViewing(isViewing) {
-        this.setState({ isViewing })
+    setIsViewing(isViewing, widgetIndex) {
+        this.setState({ isViewing, editingWidget: widgetIndex || this.state.editingWidget })
     }
 
     updateWidget(newSeries) {
         const widgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
-        const newState = { widgets, isEditing: false }
+        const newState = { widgets, isEditing: false, isViewing: false }
         this.setState(newState)
     }
 
@@ -71,6 +71,7 @@ class Body extends Component {
 
             return (
                 <Widget
+                    key={index}
                     title='Chart'
                     menuItens={this.menuItens(index)}>
                     <LineChart series={value} />

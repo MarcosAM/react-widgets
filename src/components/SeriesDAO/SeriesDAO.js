@@ -28,7 +28,6 @@ class SeriesDAO extends Component {
                 [sampleTime.replace(' ', 'T'), series[index]]
             )
         })
-        console.log(serie)
         this.setState({ serie })
     }
 

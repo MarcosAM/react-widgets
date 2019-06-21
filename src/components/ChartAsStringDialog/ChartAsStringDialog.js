@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -27,24 +27,30 @@ class ChartAsStringDialog extends Component {
             .map(splitedString => (splitedString.split('\n')))
     }
 
+    convertArraysToSeries(arrs) {
+        return arrs.map(arr => arr.map(a => a.split(' '))).map(a => ({
+            name: a[0].join(' '),
+            //data: [...a.splice(1)].map(a => a.map(n => !isNaN(parseInt(n)) ? parseInt(n) : n))
+            data: [...a.splice(1)].map(a => [...a.entries()].map(n => n[0] === 0 ? n[1] : parseInt(n[1])))
+        }))
+    }
+
+
     convertSeriesToArrays(series) {
         return series.map(serie => serie.name.concat('\n').concat(
-            serie.data.map(point => {
-                const newPoint = [new Date(point[0]).toISOString(), ...point.slice(1)]
-                return newPoint.join(' ')
-            }).join('\n')
+            serie.data.map(point => point.join(' ')).join('\n')
         )).join('\n\n')
     }
 
     render() {
         return (
             <div>
-                <Dialog open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
+                <Dialog fullScreen open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
                     <DialogTitle id="form-dialog-title">View</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <TextField
-                            disabled
+                            /*disabled*/
                             label="Chart"
                             margin="dense"
                             variant="outlined"
@@ -52,16 +58,16 @@ class ChartAsStringDialog extends Component {
                             onChange={e => this.setState({ stringSeries: e.target.value })}
                             multiline />
                     </DialogContent>
-                    {/*
                     <DialogActions>
                         <Button onClick={() => this.props.cancel()} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.submit(this.state.series)} variant='contained' color='secondary'>
+                        <Button onClick={() => this.props.submit(
+                            this.convertArraysToSeries(this.splitString(this.state.stringSeries))
+                        )} variant='contained' color='secondary'>
                             Confirm
                         </Button>
                     </DialogActions>
-                    */}
                 </Dialog>
             </div>
         )
