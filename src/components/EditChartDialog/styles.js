@@ -1,6 +1,6 @@
 export default theme => ({
-    serieInputsContainer: {
+    /*serieInputsContainer: {
         display: 'flex',
         flexDirection: 'row'
-    }
+    }*/
 })

@@ -41,6 +41,15 @@ class EditChartDialog extends Component {
         this.setState({ series: newProps.series })
     }
 
+    updateArrayAt(index, obj, arr) {
+        return ([...arr.slice(0, index), obj, ...arr.slice(index + 1)])
+    }
+
+    updateSerieName(value, seriesIndex) {
+        const newState = { series: this.updateArrayAt(seriesIndex, { name: value, data: this.state.series[seriesIndex].data }, this.state.series) }
+        this.setState(() => (newState))
+    }
+
     updateSerieValue(value, index, seriesIndex = 0) {
         //TODO validar se é número ou não de outra forma
         const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
@@ -62,45 +71,6 @@ class EditChartDialog extends Component {
 
             return ({ series: this.updateArrayAt(seriesIndex, { name: state.series[seriesIndex].name, data: newData }, state.series) })
         })
-    }
-
-    getValueInputs(values, seriesIndex) {
-
-        const inputs = Array.from(values.entries()).map(entry => {
-            const [index, value] = entry
-
-            return (
-                <Fragment>
-                    <OutlinedNumberField
-                        key={index}
-                        label={`Ponto ${index + 1}:`}
-                        value={value[1]}
-                        onChange={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
-
-                    <OutlinedDataTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
-
-                </Fragment>
-            )
-        })
-
-        return (
-            [
-                ...inputs,
-                <Fragment>
-                    <IconButton onClick={() => this.decreaseSerie(seriesIndex)} aria-label='Remove value to series'>
-                        <RemoveIcon />
-                    </IconButton>
-                    <IconButton onClick={() => this.increaseSerie(seriesIndex)} aria-label='Add value to series'>
-                        <AddIcon />
-                    </IconButton>
-                </Fragment>
-            ]
-        )
-    }
-
-    updateSerieName(value, seriesIndex) {
-        const newState = { series: this.updateArrayAt(seriesIndex, { name: value, data: this.state.series[seriesIndex].data }, this.state.series) }
-        this.setState(state => (newState))
     }
 
     addSerie() {
@@ -140,8 +110,38 @@ class EditChartDialog extends Component {
         ]
     }
 
-    updateArrayAt(index, obj, arr) {
-        return ([...arr.slice(0, index), obj, ...arr.slice(index + 1)])
+    getValueInputs(values, seriesIndex) {
+
+        const inputs = Array.from(values.entries()).map(entry => {
+            const [index, value] = entry
+
+            return (
+                <Fragment>
+                    <OutlinedNumberField
+                        key={index}
+                        label={`Ponto ${index + 1}:`}
+                        value={value[1]}
+                        onChange={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+
+                    <OutlinedDataTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
+
+                </Fragment>
+            )
+        })
+
+        return (
+            [
+                ...inputs,
+                <Fragment>
+                    <IconButton onClick={() => this.decreaseSerie(seriesIndex)} aria-label='Remove value to series'>
+                        <RemoveIcon />
+                    </IconButton>
+                    <IconButton onClick={() => this.increaseSerie(seriesIndex)} aria-label='Add value to series'>
+                        <AddIcon />
+                    </IconButton>
+                </Fragment>
+            ]
+        )
     }
 
     render() {
