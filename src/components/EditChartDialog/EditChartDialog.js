@@ -78,7 +78,7 @@ class EditChartDialog extends Component {
                         key={index}
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
-                        callback={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+                        onChange={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
 
                     <OutlinedDataTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
 

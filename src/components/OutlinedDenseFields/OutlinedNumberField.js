@@ -5,14 +5,14 @@ import TextField from '@material-ui/core/TextField'
 
 class OutlinedNumberField extends Component {
     render() {
-        const { value, label, callback } = this.props
+        const { value, label, onChange } = this.props
         const { textField } = this.props.classes
 
         return (
             <TextField
                 label={label}
                 value={value}
-                onChange={callback}
+                onChange={onChange}
                 type="number"
                 className={textField}
                 InputLabelProps={{
@@ -20,7 +20,6 @@ class OutlinedNumberField extends Component {
                 }}
                 margin="dense"
                 variant="outlined"
-
             />
         )
     }
