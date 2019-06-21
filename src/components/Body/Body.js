@@ -5,8 +5,8 @@ import Widget from '../Widget'
 import LineChart from '../Chart'
 import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
-import EditChartDialog from '../EditChartDialog'
-//import EditChartDialog from '../EditByStringDialog'
+//import EditChartDialog from '../EditChartDialog'
+import EditChartDialog from '../EditByStringDialog'
 
 //TODO adicionar a possibilidade de alterar nome de widget
 class Body extends Component {

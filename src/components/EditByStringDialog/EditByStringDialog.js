@@ -27,16 +27,12 @@ class EditByStringDialog extends Component {
             .map(splitedString => (splitedString.split('\n')))
     }
 
-    convertArraysToSeries(arrs) {
-        return arrs.map(arr => arr.map(a => a.split(' '))).map(a => ({
-            name: a[0].join(' '),
-            data: [...a.splice(1)].map(a => a.map(n => parseInt(n)))
-        }))
-    }
-
     convertSeriesToArrays(series) {
         return series.map(serie => serie.name.concat('\n').concat(
-            serie.data.map(point => point.join(' ')).join('\n')
+            serie.data.map(point => {
+                const newPoint = [new Date(point[0]).toISOString(), ...point.slice(1)]
+                return newPoint.join(' ')
+            }).join('\n')
         )).join('\n\n')
     }
 
@@ -48,6 +44,8 @@ class EditByStringDialog extends Component {
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <TextField
+                            //TODO transformar isso aqui em um style
+                            className={{ width: '100%' }}
                             id="outlined-dense-multiline"
                             label="Chart"
                             margin="dense"
