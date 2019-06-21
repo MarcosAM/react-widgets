@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 
 import TextField from '@material-ui/core/TextField'
 
-class EditByStringDialog extends Component {
+class ChartAsStringDialog extends Component {
     constructor(props) {
         super(props)
 
@@ -39,13 +39,12 @@ class EditByStringDialog extends Component {
     render() {
         return (
             <div>
-                <Dialog fullScreen open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
-                    <DialogTitle id="form-dialog-title">Edit</DialogTitle>
+                <Dialog open={this.props.isShowing} onClose={() => this.props.cancel()} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">View</DialogTitle>
                     <Divider variant="fullWidth" />
                     <DialogContent>
                         <TextField
-                            //TODO transformar isso aqui em um style
-                            id="outlined-dense-multiline"
+                            disabled
                             label="Chart"
                             margin="dense"
                             variant="outlined"
@@ -53,6 +52,7 @@ class EditByStringDialog extends Component {
                             onChange={e => this.setState({ stringSeries: e.target.value })}
                             multiline />
                     </DialogContent>
+                    {/*
                     <DialogActions>
                         <Button onClick={() => this.props.cancel()} color="primary">
                             Cancel
@@ -61,10 +61,11 @@ class EditByStringDialog extends Component {
                             Confirm
                         </Button>
                     </DialogActions>
+                    */}
                 </Dialog>
             </div>
         )
     }
 }
 
-export default EditByStringDialog
+export default ChartAsStringDialog

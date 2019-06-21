@@ -6,7 +6,7 @@ import LineChart from '../Chart'
 import Fab from '../Fab'
 import AddIcon from '@material-ui/icons/Add'
 import EditChartDialog from '../EditChartDialog'
-//import EditChartDialog from '../EditByStringDialog'
+import ChartAsStringDialog from '../ChartAsStringDialog'
 
 //TODO adicionar a possibilidade de alterar nome de widget
 class Body extends Component {
@@ -21,7 +21,8 @@ class Body extends Component {
                     }
                 ]
             ],
-            isShowingDialog: false,
+            isEditing: false,
+            isViewing: false,
             editingWidget: 0
         }
 
@@ -32,6 +33,8 @@ class Body extends Component {
         this.removeWidget = this.removeWidget.bind(this)
 
         this.updateArrayAt = this.updateArrayAt.bind(this)
+
+        this.setIsViewing = this.setIsViewing.bind(this)
     }
 
     componentWillReceiveProps(newProps) {
@@ -40,17 +43,23 @@ class Body extends Component {
 
     menuItens(widgetIndex) {
         return (
-            [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) }, { text: 'Delete', click: () => this.removeWidget(widgetIndex) }]
+            [{ text: 'Edit', click: () => this.setDialogOpen(true, widgetIndex) },
+            { text: 'View', click: () => this.setIsViewing(true) },
+            { text: 'Delete', click: () => this.removeWidget(widgetIndex) }]
         )
     }
 
     setDialogOpen(open, widgetIndex) {
-        this.setState(state => ({ isShowingDialog: open, editingWidget: widgetIndex || this.state.editingWidget }))
+        this.setState(state => ({ isEditing: open, editingWidget: widgetIndex || this.state.editingWidget }))
+    }
+
+    setIsViewing(isViewing) {
+        this.setState({ isViewing })
     }
 
     updateWidget(newSeries) {
         const widgets = this.updateArrayAt(this.state.editingWidget, newSeries, this.state.widgets)
-        const newState = { widgets, isShowingDialog: false }
+        const newState = { widgets, isEditing: false }
         this.setState(newState)
     }
 
@@ -74,9 +83,19 @@ class Body extends Component {
         return (
             <EditChartDialog
                 series={this.state.widgets[this.state.editingWidget]}
-                isShowing={this.state.isShowingDialog}
+                isShowing={this.state.isEditing}
                 submit={this.updateWidget}
                 cancel={() => this.setDialogOpen(false)} />
+        )
+    }
+
+    renderViewDialog() {
+        return (
+            <ChartAsStringDialog
+                series={this.state.widgets[this.state.editingWidget]}
+                isShowing={this.state.isViewing}
+                submit={this.updateWidget}
+                cancel={() => this.setIsViewing(false)} />
         )
     }
 
@@ -101,6 +120,7 @@ class Body extends Component {
             <div className={this.props.classes.body} >
                 {this.renderWidgets()}
                 {this.renderEditChartDialog()}
+                {this.renderViewDialog()}
                 <Fab onClick={this.addWidget}>
                     <AddIcon />
                 </Fab>
