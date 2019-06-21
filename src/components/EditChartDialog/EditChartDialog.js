@@ -43,19 +43,16 @@ class EditChartDialog extends Component {
 
     updateSerieValue(value, index, seriesIndex = 0) {
         //TODO validar se é número ou não de outra forma
-        //if (!isNaN(value)) {
         const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
-
-        this.setState(state => ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] }))
-        //}
+        const updateSerie = { name: this.state.series[seriesIndex].name, data: newData }
+        this.setState(state => ({ series: this.updateArrayAt(seriesIndex, updateSerie, state.series) }))
     }
 
     decreaseSerie(seriesIndex) {
         this.setState(state => {
             const newData = state.series[seriesIndex].data.slice(0, state.series[seriesIndex].data.length - 1)
 
-            //TODO refatorar isso aqui para ser uma função separada
-            return ({ series: [...state.series.slice(0, seriesIndex), { name: state.series[seriesIndex].name, data: newData }, ...state.series.slice(seriesIndex + 1)] })
+            return ({ series: this.updateArrayAt(seriesIndex, newData, state.series) })
         })
     }
 
