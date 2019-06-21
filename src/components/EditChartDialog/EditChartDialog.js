@@ -15,8 +15,6 @@ import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
 
-//TODO ele não consegue receber vazios
-//TODO deletar o styles porquê ele não está sendo usado para nada
 //TODO refatorar isso para uma classe que cuida de todas as séries e várias classes filhas que cuidam de cada classe...talvez
 class EditChartDialog extends Component {
     constructor(props) {
@@ -51,8 +49,8 @@ class EditChartDialog extends Component {
     }
 
     updateSerieValue(value, index, seriesIndex = 0) {
-        //TODO validar se é número ou não de outra forma
-        const newData = [...this.state.series[seriesIndex].data.slice(0, index), value, ...this.state.series[seriesIndex].data.slice(index + 1)]
+        const newValue = !isNaN(parseInt(value[1])) ? [value[0], parseInt(value[1])] : value
+        const newData = [...this.state.series[seriesIndex].data.slice(0, index), newValue, ...this.state.series[seriesIndex].data.slice(index + 1)]
         const updateSerie = { name: this.state.series[seriesIndex].name, data: newData }
         this.setState(state => ({ series: this.updateArrayAt(seriesIndex, updateSerie, state.series) }))
     }
@@ -82,7 +80,7 @@ class EditChartDialog extends Component {
     }
 
     getListItens() {
-        const listItens = [...this.state.series.entries()].map(entry => {
+        const listItens = !this.state.series ? [] : [...this.state.series.entries()].map(entry => {
             const [index, value] = entry
 
             return ({
@@ -121,7 +119,8 @@ class EditChartDialog extends Component {
                         key={index}
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
-                        onChange={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+                        //onChange={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
+                        onChange={event => this.updateSerieValue([value[0], event.target.value], index, seriesIndex)} />
 
                     <OutlinedDataTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
 
