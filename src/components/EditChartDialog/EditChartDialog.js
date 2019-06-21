@@ -6,7 +6,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
-import OutlinedNumberField, { OutlinedTextField } from '../OutlinedNumberField'
+import { OutlinedNumberField, OutlinedTextField, OutlinedDataTimePicker } from '../OutlinedDenseFields'
 import styles from './styles'
 import { withStyles } from '@material-ui/core'
 import NestedList from '../NestedList'
@@ -14,7 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
 import DeleteIcon from '@material-ui/icons/Delete'
-import DateTimePicker from '../DateTimePicker'
 
 //TODO ele não consegue receber vazios
 //TODO deletar o styles porquê ele não está sendo usado para nada
@@ -80,9 +79,9 @@ class EditChartDialog extends Component {
                         label={`Ponto ${index + 1}:`}
                         value={value[1]}
                         callback={event => this.updateSerieValue([value[0], parseInt(event.target.value)], index, seriesIndex)} />
-                    
-                    <DateTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
-                    
+
+                    <OutlinedDataTimePicker value={new Date(value[0]).toISOString().replace('Z', '')} />
+
                 </Fragment>
             )
         })

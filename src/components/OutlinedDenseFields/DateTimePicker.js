@@ -8,8 +8,7 @@ class DateTimePicker extends Component {
     render() {
         return (
             <TextField
-                id="datetime-local"
-                label="Next appointment"
+                label="Date Time"
                 type="datetime-local"
                 value={this.props.value}
                 className={this.props.classes.textField}
