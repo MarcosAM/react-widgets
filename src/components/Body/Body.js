@@ -111,7 +111,6 @@ class Body extends Component {
 
     removeWidget(index) {
         const widgets = [...this.state.widgets.slice(0, index), ...this.state.widgets.slice(index + 1)]
-        console.log(widgets)
         this.setState({ widgets, editingWidget: 0 })
     }
 

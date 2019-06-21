@@ -4,26 +4,16 @@ import Chart from './Chart'
 class LineChart extends Component {
 
     render() {
-        console.log(this.props.series)
-
+        const convertedSeries = this.props.series.map(serie => ({ ...serie, ...{ data: serie.data.map(point => ([Date.parse(point[0]), point[1]])) } }))
+        console.log(convertedSeries)
         return (
             <Chart data={{
                 title: { text: 'My Chart' },
                 xAxis: {
                     type: 'datetime',
                 },
-                plotOptions: {
-                    series: {
-                        cursor: 'pointer',
-                        events: {
-                            click: (e) => {
-                                console.log('Você clicou no ', e.point)
-                            }
-                        }
-                    }
-                },
-                //series: { ...this.props.series, ...{ events: { click: () => console.log('Cheguei!') } } }
-                series: this.props.series
+                //series: this.props.series
+                series: convertedSeries
             }} />
         )
     }
