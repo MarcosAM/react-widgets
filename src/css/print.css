@@ -2,6 +2,9 @@
     .unprintable {
         display: none!important;
     }
+    .avoid-page-break {
+        page-break-inside: avoid;
+    }
     a:after {
         content: "("attr(href)")";
     }
@@ -13,18 +16,6 @@
         margin: 0px!important;
         padding: 0px!important;
     }
-    /*
-    * {
-        background: transparent;
-        color: #000;
-        text-shadow: none;
-        filter: none;
-        -ms-filter: none;
-        box-shadow: none!important;
-        -webkit-box-shadow: none!important;
-        -moz-box-shadow: none!important;
-    }
-    */
 }
 
 @media screen {

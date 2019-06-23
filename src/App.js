@@ -1,8 +1,10 @@
 import React from 'react'
+import './css/print.css'
+
 import PrintHeader from './components/PrintHeader'
 import Header from './components/Header'
 import SeriesDAO from './components/SeriesDAO/SeriesDAO'
-import './css/print.css'
+import PrintFooter from './components/PrintFooter'
 
 function App() {
     return (
@@ -10,6 +12,7 @@ function App() {
             <PrintHeader />
             <Header title='Delfos' />
             <SeriesDAO />
+            <PrintFooter />
         </div>
     );
 }

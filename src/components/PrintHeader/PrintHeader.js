@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import logo from '../../img/delfos-logo.svg'
 import styles from './styles'
 import { withStyles } from '@material-ui/core'

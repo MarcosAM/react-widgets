@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import CardHeader from '@material-ui/core/CardHeader';
 
 const Widget = ({ title, classes, children, menuItens }) => (
-  <Card className={classes.card}>
+  <Card className={[classes.card, 'avoid-page-break'].join(' ')}>
     <CardHeader title={title}
       className='unprintable'
       action={<KebabMenu menuItens={menuItens} />} />
