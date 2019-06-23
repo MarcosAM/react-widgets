@@ -1,0 +1,39 @@
+@media print {
+    .unprintable {
+        display: none!important;
+    }
+    a:after {
+        content: "("attr(href)")";
+    }
+    body {
+        zoom: 90%;
+    }
+    #root {
+        width: 100%!important;
+        margin: 0px!important;
+        padding: 0px!important;
+    }
+    /*
+    * {
+        background: transparent;
+        color: #000;
+        text-shadow: none;
+        filter: none;
+        -ms-filter: none;
+        box-shadow: none!important;
+        -webkit-box-shadow: none!important;
+        -moz-box-shadow: none!important;
+    }
+    */
+}
+
+@media screen {
+    .only-print {
+        display: none!important;
+    }
+}
+
+@page {
+    size: auto;
+    margin: 0mm;
+}

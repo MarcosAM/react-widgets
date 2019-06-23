@@ -5,7 +5,7 @@ import styles from './styles'
 
 
 const FloatingActionButton = ({ classes, children, onClick }) => (
-    <Fab onClick={onClick} color="secondary" aria-label="Add" className={classes.fab}>
+    <Fab onClick={onClick} color="secondary" aria-label="Add" className={[classes.fab, 'unprintable']}>
         {children}
     </Fab>
 )

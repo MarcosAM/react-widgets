@@ -10,6 +10,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 const Widget = ({ title, classes, children, menuItens }) => (
   <Card className={classes.card}>
     <CardHeader title={title}
+      className='unprintable'
       action={<KebabMenu menuItens={menuItens} />} />
     <Divider variant="fullWidth" />
     <CardContent>

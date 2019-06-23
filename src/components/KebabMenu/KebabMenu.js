@@ -46,7 +46,6 @@ class KebabMenu extends Component {
                     <MoreVert />
                 </IconButton>
                 <Menu
-                    id="simple-menu"
                     anchorEl={this.state.anchorEl}
                     keepMounted
                     open={Boolean(this.state.anchorEl)}

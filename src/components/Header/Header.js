@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core'
 
 const SearchAppBar = ({ title, classes }) => (
     <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar className='unprintable' position="static">
             <Toolbar>
                 <Typography className={classes.title} variant="h6" noWrap>
                     {title}
